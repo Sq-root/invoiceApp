@@ -3,24 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './core/layout/header/header/header.component';
-import { SidemenuComponent } from './core/layout/sidemenu/sidemenu.component';
-import { MasterPageComponent } from './core/layout/master-page/master-page.component';
-import { AuthenticateComponent } from './core/authenticate/authenticate.component';
+import { LayoutModule } from './core/layout/layout.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidemenuComponent,
-    MasterPageComponent,
-    AuthenticateComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
