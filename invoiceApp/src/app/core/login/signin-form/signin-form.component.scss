@@ -1,0 +1,60 @@
+// login Form
+.signin-form-section {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../../assets/imgs/colorful-veggies-frame-with-copy-space.jpg ");
+  // background-color: #f0f0ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  .logo img {
+    max-width: 40%;
+  }
+  h4 {
+    // font-family: $primary_font_family;
+    font-weight: 700;
+  }
+  .signin-form {
+    position: relative;
+    top: 100px;
+    padding-inline: 60px;
+    border-radius: 2.55rem !important;
+
+    .error-msg {
+      display: block;
+      text-align: left !important;
+      color: red;
+      font-weight: 700;
+      font-size: 10px;
+      padding-left: 10px;
+    }
+  }
+  .form-control {
+    height: 50px;
+    border-radius: 30px;
+    // height: 50px;
+    &:active,
+    &:focus {
+      // outline: none !important;
+      border: 1px solid gray;
+      box-shadow: none !important;
+    }
+  }
+  .login_btn {
+    width: 100%;
+    border-radius: 30px;
+    height: 48px;
+    // background-color: $primary_btn_color;
+    background-color: #ff6633;
+    outline: none;
+    border: none;
+    &:active,
+    &:focus {
+      cursor: pointer;
+      background-color: #ff6633b6;
+      outline: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+}

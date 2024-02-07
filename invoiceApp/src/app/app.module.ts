@@ -7,7 +7,7 @@ import { LayoutModule } from './core/layout/layout.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
-  declarations: [],
+  declarations: [AppComponent],
   imports: [BrowserModule, LayoutModule, RouterModule],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
