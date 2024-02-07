@@ -8,6 +8,6 @@ import { LayoutRoutingModule } from './layout-routing.module';
 
 @NgModule({
   declarations: [HeaderComponent, MasterPageComponent, SidemenuComponent],
-  imports: [CommonModule, RouterModule, LayoutRoutingModule],
+  imports: [CommonModule, LayoutRoutingModule],
 })
 export class LayoutModule {}
