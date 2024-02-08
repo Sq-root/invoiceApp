@@ -6,9 +6,18 @@
   .navbar {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: start;
     height: 100vh;
     width: 180px;
     background: #363b4d;
+    // padding-inline: 10px;
+  }
+
+  .logo img {
+    width: 100%;
+  }
+
+  hr {
+    background-color: gray;
   }
 }
