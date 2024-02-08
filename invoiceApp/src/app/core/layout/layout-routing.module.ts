@@ -1,3 +1,4 @@
+import { InvoiceModule } from './../../features/invoice/invoice.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
@@ -15,6 +16,11 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () =>
           import('../login/login.module').then((m) => m.LoginModule),
+      },
+      {
+        path: 'invoice',
+        loadChildren: () =>
+          import('../../features/invoice/invoice.module').then((m) => m.InvoiceModule),
       },
     ],
   },
