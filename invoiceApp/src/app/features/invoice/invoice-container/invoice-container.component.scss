@@ -25,19 +25,22 @@
 
 .menu-items {
   padding-inline: 14px;
+  color: white;
+  .menu-heading {
+    font-weight: 700;
+  }
 
   .sub-menu {
     cursor: pointer;
     padding-inline: 10px;
     display: flex;
     flex-direction: column;
-    i {
-      font-style: normal;
-    }
 
-    a {
+    .menu-links {
       text-decoration: none;
       color: white;
+      font-style: normal;
+      font-size: 12px;
     }
   }
 }
