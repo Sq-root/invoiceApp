@@ -3,7 +3,7 @@
   flex-direction: row;
   min-width: 100%;
 
-  .navbar {
+  .nav-bar {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -15,9 +15,29 @@
 
   .logo img {
     width: 100%;
+    border-bottom: 3px solid rgb(255, 102, 0);
   }
 
   hr {
-    background-color: gray;
+    background-color: white;
+  }
+}
+
+.menu-items {
+  padding-inline: 14px;
+
+  .sub-menu {
+    cursor: pointer;
+    padding-inline: 10px;
+    display: flex;
+    flex-direction: column;
+    i {
+      font-style: normal;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
