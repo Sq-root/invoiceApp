@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './core/layout/layout.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, LayoutModule, HttpClientModule, RouterModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    HttpClientModule,
+    RouterModule,
+  ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
 })

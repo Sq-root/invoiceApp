@@ -2,14 +2,112 @@
   <div class="invoice-setting"></div>
   <div class="invoice-create-container">
     <div class="row">
+      <!-- invooice-title  -->
       <div class="col-12">
-        <div class="invoice-desc d-flex align-item-center justify-content-start">
-          <h4 class="invoice-type">Draft</h4>
+        <div class="invoice-desc d-flex align-item-center justify-content-starts">
+          <div class="invoice-type">
+            Draft
+          </div>
           <div class="invoice-title">
-            <input type="text" id="title" class="form-control border-gray" value="Invoice" />
+            <input type="text" id="title" class="form-control border-gray fw-medium" value="Invoice" />
           </div>
         </div>
       </div>
+
+      <!-- invoice number  -->
+      <div class="col-12 mt-3">
+        <div class="row">
+          <div class="col-2 mt-3 d-flex align-items-center">
+            <div class="input-group mb-3 w-75">
+              <label for="invoiceNO" class="form-label">Invoice No.</label>
+              <span class="input-group-text" id="basic-addon1">#</span>
+              <input type="number" class="form-control border-gray" id="invoiceNO" placeholder="No"
+                aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="col-6 mt-4 offset-3 d-flex align-items-center ">
+            <label for="basic" class="form-label">Basic</label>
+            <div class="datepicker">
+              <p-calendar inputId="basic" [(ngModel)]="value"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- invoice-customer -details   -->
+      <!-- <div class="col-12 mt-4">
+        <div class="row g-5">
+          <div class="col-6">
+            <div class="card border-gray">
+              <h5 class="card-header fw-normal p-3">Customer Details</h5>
+              <div class="card-body">
+                <form>
+                  <div class="row gx-4 gy-3">
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Enter name"
+                        aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Email Address"
+                        aria-label="Last name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Address 1"
+                        aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Address 2"
+                        aria-label="Last name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="City" aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Mobile Number"
+                        aria-label="Last name">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card border-gray">
+              <h5 class="card-header fw-normal p-3">Business Profile</h5>
+              <div class="card-body">
+                <form>
+                  <div class="row gx-4 gy-3">
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Enter name"
+                        aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Email Address"
+                        aria-label="Last name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Address 1"
+                        aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Address 2"
+                        aria-label="Last name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="City" aria-label="First name">
+                    </div>
+                    <div class="col-6">
+                      <input type="text" class="form-control border-gray" placeholder="Mobile Number"
+                        aria-label="Last name">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> -->
     </div>
   </div>
 </section>
