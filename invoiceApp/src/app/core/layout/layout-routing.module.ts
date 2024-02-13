@@ -1,4 +1,3 @@
-import { InvoiceModule } from './../../features/invoice/invoice.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
@@ -9,7 +8,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login', //By Default redirect to Profile Page
+        redirectTo: 'login', //By Default redirect to Login Page
         pathMatch: 'full',
       },
       {
@@ -20,7 +19,9 @@ const routes: Routes = [
       {
         path: 'invoice',
         loadChildren: () =>
-          import('../../features/invoice/invoice.module').then((m) => m.InvoiceModule),
+          import('../../features/invoice/invoice.module').then(
+            (m) => m.InvoiceModule
+          ),
       },
     ],
   },
