@@ -1,3 +1,9 @@
+<p-toast
+sticky="false"
+closable="true"
+position="top-right"
+[baseZIndex]=autoIndex
+></p-toast>
 <section class="main-container">
   <!-- Sidemenu  -->
   <app-sidemenu></app-sidemenu>
@@ -5,7 +11,9 @@
   <div class="hero-section">
     <app-header></app-header>
     <section class="dynamic-screen-section">
+      <!-- <button class="btn btn-primary" (click)="show()">Toast</button> -->
       <router-outlet></router-outlet>
     </section>
   </div>
 </section>
+
