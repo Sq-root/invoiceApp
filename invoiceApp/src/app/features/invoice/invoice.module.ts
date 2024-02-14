@@ -8,9 +8,11 @@ import { InvoiceContainerComponent } from './invoice-container/invoice-container
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { InvoicGenerateComponent } from './invoic-generate/invoic-generate.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
+import { ToastModule} from 'primeng/toast';
+import {TableModule} from 'primeng/table';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import {MultiSelectModule} from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
     InvoiceContainerComponent,
@@ -25,7 +27,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FormsModule,
     CalendarModule,
     ToastModule,
-    NgxSpinnerModule
+    TableModule,
+    NgxSpinnerModule,
+    MultiSelectModule,
+    DropdownModule
   ],
 })
 export class InvoiceModule {}

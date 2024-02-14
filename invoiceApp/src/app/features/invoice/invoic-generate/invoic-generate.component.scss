@@ -5,7 +5,7 @@
   background-color: white;
   padding: 2rem 3rem;
   font-weight: 300 !important;
-
+  overflow-y: auto; /* Enable main content scrolling */
   .invoice-type {
     background-color: #a1a1a1;
     color: white;
