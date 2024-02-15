@@ -119,7 +119,7 @@
                   <th>Description</th>
                   <th>Quantity</th>
                   <th>Rate</th>
-                  <th>Quantity</th>
+                  <th>Amount</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
@@ -142,9 +142,30 @@
                       </p-dropdown>
                     </div>
                   </td>
-                  <td>{{product.name}}</td>
-                  <td>{{product.category}}</td>
-                  <td>{{product.quantity}}</td>
+                  <!-- //Quan -->
+                  <td> <p-inputNumber inputId="integeronly"></p-inputNumber></td>
+                  <!-- Rate & Unit  -->
+                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" [maxFractionDigits]="2"> </p-inputNumber> <p-dropdown [options]="unitList"  optionLabel="item"
+                   [showClear]="true" placeholder="Select Unit">
+                    <ng-template pTemplate="selectedItem" let-selectedOption>
+                      <div class="flex align-items-center gap-2">
+                        <div>{{ selectedOption.item }}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-unit pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <div>{{ unit.item }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  </td>
+                  <!-- //AMount  -->
+                  <td><p-inputNumber inputId="minmaxfraction" mode="decimal" [maxFractionDigits]="2"> </p-inputNumber>
+                  </td>
+                  <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>

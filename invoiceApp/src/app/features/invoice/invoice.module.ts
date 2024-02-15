@@ -13,6 +13,7 @@ import {TableModule} from 'primeng/table';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
   declarations: [
     InvoiceContainerComponent,
@@ -30,7 +31,8 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     NgxSpinnerModule,
     MultiSelectModule,
-    DropdownModule
+    DropdownModule,
+    InputNumberModule
   ],
 })
 export class InvoiceModule {}
