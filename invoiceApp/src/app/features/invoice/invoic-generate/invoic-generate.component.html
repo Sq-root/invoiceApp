@@ -110,25 +110,27 @@
       </div>
 
       <!-- invoice table  -->
-      <div class="col-12 mt-4">
+      <div class="col-12 my-4">
         <section class="statement-container">
           <form action="">
-            <p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '100%'}">
+            <p-table [value]="products" styleClass="p-datatable-sm" class="invoice-table">
               <ng-template pTemplate="header">
                 <tr>
                   <th>Description</th>
                   <th>Quantity</th>
                   <th>Rate</th>
                   <th>Amount</th>
+                  <th><button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-sucess"></button>
+                  </th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
                 <tr>
-                  <!-- //Product Dropdown  -->
+                  <!-- Product Dropdown  -->
                   <td>
-                    <div class="card flex justify-content-center">
+                    <div class="card flex justify-content-center border-gray">
                       <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true"
-                        filterBy="name" [showClear]="true" placeholder="Select a Country">
+                        filterBy="name" [showClear]="true" placeholder="Select a Country" class="">
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                           <div class="flex align-items-center gap-2">
                             <div>{{ selectedOption.name }}</div>
@@ -142,29 +144,39 @@
                       </p-dropdown>
                     </div>
                   </td>
-                  <!-- //Quan -->
-                  <td> <p-inputNumber inputId="integeronly"></p-inputNumber></td>
-                  <!-- Rate & Unit  -->
-                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" [maxFractionDigits]="2"> </p-inputNumber> <p-dropdown [options]="unitList"  optionLabel="item"
-                   [showClear]="true" placeholder="Select Unit">
-                    <ng-template pTemplate="selectedItem" let-selectedOption>
-                      <div class="flex align-items-center gap-2">
-                        <div>{{ selectedOption.item }}</div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-unit pTemplate="item">
-                      <div class="flex align-items-center gap-2">
-                        <div>{{ unit.item }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                  </td>
-                  <!-- //AMount  -->
-                  <td><p-inputNumber inputId="minmaxfraction" mode="decimal" [maxFractionDigits]="2"> </p-inputNumber>
-                  </td>
+                  <!-- Quan -->
                   <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                    <div class="d-flex justify-content-start align-items-center gap-3">
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled"
+                        [maxFractionDigits]="2"></p-inputNumber>
+                      <p-dropdown [options]="unitList" optionLabel="item" class="unitDropdown" [showClear]="true"
+                        placeholder="Unit">
+                        <ng-template pTemplate="selectedItem" let-selectedOption>
+                          <div class="flex align-items-center gap-2">
+                            <div>{{ selectedOption.item }}</div>
+                          </div>
+                        </ng-template>
+                        <ng-template let-unit pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                            <div>{{ unit.item }}</div>
+                          </div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                  </td>
+                  <!-- Rate & Unit  -->
+                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled"
+                      [maxFractionDigits]="2"> </p-inputNumber>
+                  </td>
+                  <!-- AMount  -->
+                  <td>
+                    <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2">
+                    </p-inputNumber>
+                  </td>
+                  <!-- Action Btn  -->
+                  <td>
+                    <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button> -->
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
                   </td>
                 </tr>
               </ng-template>
@@ -172,6 +184,37 @@
           </form>
         </section>
 
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 ms-auto">
+        <div class="statement-audit-container">
+          <div class="audit-property-1 flex-container">
+            <p class="fw-medium">Sub Total</p>
+            <p>0.00</p>
+          </div>
+          <div class="audit-property-2 flex-container">
+            <p class="fw-medium">Delivery Charge <span class="text-danger">(+)</span></p>
+            <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
+              [maxFractionDigits]="2">
+            </p-inputNumber>
+          </div>
+          <div class="audit-property-3 flex-container">
+            <p class="fw-medium">Vegetable Return Amount <span class="text-danger">(-)</span></p>
+            <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
+              [maxFractionDigits]="2">
+            </p-inputNumber>
+          </div>
+          <div class="audit-property-4 flex-container">
+            <div class="audit-total" style="background-color: #ff8923;">
+              Total(INR)
+            </div>
+            <div class="audit-value">
+              00.00
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
