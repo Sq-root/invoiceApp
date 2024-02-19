@@ -167,7 +167,9 @@
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
                       <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
-                        formControlName="quantity" ></p-inputNumber>
+                        formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
+                      <!-- <input class="form-control" type="text" placeholder="Default input" formControlName="quantity"
+                        (ngModelChange)="calculateTotalPrice(i)"> -->
                       <p-dropdown [options]="unitList" optionLabel="item" class="unitDropdown" [showClear]="true"
                         placeholder="Unit" formControlName="unit">
                         <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -185,13 +187,13 @@
                   </td>
                   <!-- Rate   -->
                   <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
-                      formControlName="rate" >
+                      formControlName="rate" (ngModelChange)="calculateTotalPrice(i)">
                     </p-inputNumber>
                   </td>
                   <!-- AMount  -->
                   <td>
                     <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
-                      formControlName="amount">
+                      formControlName="amount" (ngModelChange)="calculateInvoiceSubTotal()">
                     </p-inputNumber>
                   </td>
                   <!-- Action Btn  -->
@@ -214,18 +216,22 @@
           <div class="statement-audit-container">
             <div class="audit-property-1 flex-container">
               <p class="fw-medium">Sub Total</p>
-              <p>0.00</p>
+              <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
+                [maxFractionDigits]="2" formControlName="subTotal" name="subTotal" id="subTotal" [readonly]="true">
+              </p-inputNumber>
             </div>
             <div class="audit-property-2 flex-container">
               <p class="fw-medium">Delivery Charge <span class="text-danger">(+)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="2">
+                [maxFractionDigits]="2" formControlName="deliveryCharge" name="deliveryCharge" id="deliveryCharge"
+                (ngModelChange)="calculateDeliveryCharge()">
               </p-inputNumber>
             </div>
             <div class="audit-property-3 flex-container">
               <p class="fw-medium">Vegetable Return Amount <span class="text-danger">(-)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="2">
+                [maxFractionDigits]="2" formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
+                (ngModelChange)="calculateCancelledOrderCharge()">
               </p-inputNumber>
             </div>
             <div class="audit-property-4 flex-container">
@@ -233,7 +239,9 @@
                 Total(INR)
               </div>
               <div class="audit-value">
-                0.00
+                <p-inputNumber inputId="minmaxfraction" mode="decimal" [ngStyle]="{'border': 'none'}" placeholder="0.00"
+                  [maxFractionDigits]="2" formControlName="totalBill" name="totalBill" id="totalBill" [readonly]="true">
+                </p-inputNumber>
               </div>
             </div>
             <button type="button" class="btn btn-primary" style="background-color: #ff8923;"

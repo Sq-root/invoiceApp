@@ -96,16 +96,18 @@ export class InvoicGenerateComponent implements OnInit {
     this.getInitalizedForm();
 
     // Subscribe to form changes to recalculate total price
-    this.invoiceForm.get('BillOfproducts').valueChanges.subscribe((formcontrol) => {
-      console.log('Changes: ', formcontrol);
+    // this.invoiceForm
+    //   .get('BillOfproducts')
+    //   .valueChanges.subscribe((formcontrol) => {
+    //     console.log('Changes: ', formcontrol);
 
-      // this.calculateTotalPrice();
-    });
+    //     // this.calculateTotalPrice();
+    //   });
     // // Subscribe to form changes to recalculate total price
     // this.invoiceForm.valueChanges.subscribe((formcontrol) => {
     //   console.log('Changes: ', formcontrol);
 
-    //   // this.calculateTotalPrice(); 
+    //   // this.calculateTotalPrice();
     // });
   }
 
@@ -140,6 +142,10 @@ export class InvoicGenerateComponent implements OnInit {
           amount: ['', Validators.required],
         }),
       ]),
+      subTotal: [''],
+      deliveryCharge: [''],
+      cancelledCharge: [''],
+      totalBill: [''],
     });
   }
 
@@ -167,31 +173,70 @@ export class InvoicGenerateComponent implements OnInit {
   //Method: Remove New Product for Invoice
   removeProduct(index: number) {
     this.BillofproductArray.removeAt(index);
+    this.calculateInvoiceSubTotal();
   }
 
   // Method : Generate Bill and Submti to API
   getInvoiceDetails() {
-    console.log('ff: ', this.invoiceForm.get('BillOfproducts')['controls']);
-
-    console.log('Invoice Form  :', this.invoiceForm);
+    // console.log('Invoice Form  :', this.invoiceForm);
     if (this.invoiceForm.valid) {
-      // console.log('Invoice Form  :', this.invoiceForm);
+      console.log('Invoice Form  :', this.invoiceForm);
     }
   }
 
+  //Method: Used to Get Product AMount quantity and Rate Wise
   calculateTotalPrice(index: number) {
-    console.log('Index: ', index);
     let BillOfproducts = (this.invoiceForm.get('BillOfproducts') as FormArray)
       .controls;
     let selectedProduct = BillOfproducts[index];
-    // console.log('selectedProduct: ', selectedProduct);
+    console.log('selectedProduct: ', selectedProduct);
 
-    // let quantity = selectedProduct.get('quantity').value;
-    // let rate = selectedProduct.get('rate').value;
-    // let unit = selectedProduct.get('unit').value;
-    // let amount: number = Number(quantity) * Number(rate);
-    // console.log('Qantity, Rate,Unit, amount: ', quantity, rate, unit, amount);
-    // selectedProduct.get('amount').patchValue(amount,{ emitEvent: false });
+    // let quantity = selectedProduct.value['quantity'];
+    let quantity = selectedProduct.get('quantity').value;
+    let rate = selectedProduct.get('rate').value;
+    let unit = selectedProduct.get('unit').value;
 
+    //Check for Gram Unit
+    let amount: number = Number(quantity) * Number(rate);
+    selectedProduct.get('amount').patchValue(amount, { emitEvent: false });
+
+    this.calculateInvoiceSubTotal();
+  }
+
+  //Method : Find SubTotal of All the Product user Selected
+  calculateInvoiceSubTotal() {
+    let totalAmount = 0;
+    let BillOfproducts = (this.invoiceForm.get('BillOfproducts') as FormArray)
+      .controls;
+    BillOfproducts.forEach((formObj) => {
+      totalAmount += formObj.get('amount').value;
+    });
+    this.invoiceForm
+      .get('subTotal')
+      .patchValue(totalAmount, { emitEvent: false });
+
+    this.calculateDeliveryCharge();
+    this.calculateCancelledOrderCharge();
+  }
+
+  //Method: Add Delivery Charge
+  calculateDeliveryCharge() {
+    let subTotal = this.invoiceForm.get('subTotal').value;
+    let totalBill = subTotal + this.invoiceForm.get('deliveryCharge').value;
+    this.invoiceForm
+      .get('totalBill')
+      .patchValue(totalBill, { emitEvent: false });
+  }
+
+  //Method: Remove Cancelled Order Charge Charge
+  calculateCancelledOrderCharge() {
+    let subTotal = this.invoiceForm.get('subTotal').value;
+    let totalBill =
+      subTotal +
+      this.invoiceForm.get('deliveryCharge').value -
+      this.invoiceForm.get('cancelledCharge').value;
+    this.invoiceForm
+      .get('totalBill')
+      .patchValue(totalBill, { emitEvent: false });
   }
 }
