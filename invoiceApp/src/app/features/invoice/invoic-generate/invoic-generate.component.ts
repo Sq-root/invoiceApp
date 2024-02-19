@@ -118,11 +118,11 @@ export class InvoicGenerateComponent implements OnInit {
       invoiceDate: ['', Validators.required],
       invoiceTime: ['', Validators.required],
       customerDetails: this.formBuilder.group({
-        customerName: [''],
+        customerName: ['', Validators.required],
         customerEmail: [''],
         customerPhoneNumber: [''],
         customerMobileNumber: [''],
-        customerAddress1: [''],
+        customerAddress1: ['', Validators.required],
         customerAddress2: [''],
       }),
       BusinessDetails: this.formBuilder.group({
@@ -178,6 +178,7 @@ export class InvoicGenerateComponent implements OnInit {
 
   // Method : Generate Bill and Submti to API
   getInvoiceDetails() {
+    this.invoiceForm.markAllAsTouched();
     // console.log('Invoice Form  :', this.invoiceForm);
     if (this.invoiceForm.valid) {
       console.log('Invoice Form  :', this.invoiceForm);
@@ -238,5 +239,10 @@ export class InvoicGenerateComponent implements OnInit {
     this.invoiceForm
       .get('totalBill')
       .patchValue(totalBill, { emitEvent: false });
+  }
+
+  // Option 1
+  resetForm() {
+    this.invoiceForm.reset();
   }
 }
