@@ -245,8 +245,8 @@ export class InvoicGenerateComponent implements OnInit {
       .patchValue(totalBill, { emitEvent: false });
   }
 
-  generateInvoice(invoiceData: any) {
-    var documentDefinition = {
+  generateInvoice(invoicedata: any) {
+    let dd = {
       pageSize: 'A4',
       pageMargins: [40, 60, 40, 60], // [left, top, right, bottom]
       background: function (currentPage, pageSize) {
@@ -322,7 +322,7 @@ export class InvoicGenerateComponent implements OnInit {
           margin: [0, 20, 0, 10],
           columns: [
             {
-              width: '35%',
+              width: '60%',
               stack: [
                 {
                   text: 'Bill To :',
@@ -331,10 +331,12 @@ export class InvoicGenerateComponent implements OnInit {
                   fontSize: 13,
                   margin: [0, 0, 0, 2],
                 },
-                'Gaurav Davda',
-                'GauravDavda@gmail.com',
-                'Mumbai-40666,',
-                '+91 7303580303',
+                { text: invoicedata.customerDetails.customerName },
+                { text: invoicedata.customerDetails.customerEmail },
+                { text: invoicedata.customerDetails.customerAddress1 },
+                { text: invoicedata.customerDetails.customerAddress2 },
+                { text: invoicedata.customerDetails.customerPhoneNumber },
+                { text: invoicedata.customerDetails.customerMobileNumber },
               ],
               lineHeight: 1.2,
               margin: [0, 0, 0, 10],
@@ -343,9 +345,13 @@ export class InvoicGenerateComponent implements OnInit {
               width: '*',
               margin: [0, 13, 0, 10],
               stack: [
-                `Invoice No : 12345`,
-                'Date : 02/12/2024 ',
-                'Time :  Morning ',
+                { text: `Invoice No: ${(Math.random() * 1000).toFixed(0)}` },
+                {
+                  text: `Date: ${new Date(
+                    invoicedata.invoiceDate
+                  ).toDateString()}`,
+                },
+                { text: `Time: ${invoicedata.invoiceTime}` },
               ],
               fontSize: 12,
               bold: true,
@@ -356,58 +362,21 @@ export class InvoicGenerateComponent implements OnInit {
           columnGap: 10,
         },
         {
-          //   layout: 'lightHorizontalLines', // optional
           lineHeight: 1.2,
           table: {
             headerRows: 1,
             widths: [250, 130, '*'],
-            // 	heights: 30,
             body: [
-              //   [ 'VEGETABLES NAME', 'QUANTITY', 'TOTAL' ], //Header Row
               [
                 { text: 'VEGETABLES NAME', style: 'header' },
                 { text: 'QUANTITY', style: 'header' },
                 { text: 'TOTAL', style: 'header' },
               ],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
-              ['Value 1', 'Value 2', 'Value 3'],
+              ...invoicedata.BillOfproducts.map((item) => [
+                item.productName.name,
+                item.quantity,
+                item.amount,
+              ]),
             ],
           },
         },
@@ -426,7 +395,7 @@ export class InvoicGenerateComponent implements OnInit {
                 },
                 {
                   border: [false, false, false, false],
-                  text: '₹ 999.99',
+                  text: `₹ ${invoicedata.subTotal}`,
                   alignment: 'right',
                   fillColor: '#f5f5f5',
                   margin: [0, 5, 0, 5],
@@ -440,7 +409,7 @@ export class InvoicGenerateComponent implements OnInit {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: '₹ 999.99',
+                  text: `₹ ${invoicedata.deliveryCharge}`,
                   border: [false, false, false, false],
                   fillColor: '#f5f5f5',
                   alignment: 'right',
@@ -455,7 +424,7 @@ export class InvoicGenerateComponent implements OnInit {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: '₹ 999.99',
+                  text: `₹ ${invoicedata.cancelledCharge}`,
                   border: [false, false, false, false],
                   fillColor: '#f5f5f5',
                   alignment: 'right',
@@ -472,7 +441,7 @@ export class InvoicGenerateComponent implements OnInit {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: '₹ 999.99',
+                  text: `₹ ${invoicedata.totalBill}`,
                   bold: true,
                   fontSize: 16,
                   alignment: 'right',
@@ -515,7 +484,7 @@ export class InvoicGenerateComponent implements OnInit {
         },
       },
     };
-    pdfMake.createPdf(documentDefinition).open();
+    pdfMake.createPdf(dd).open();
   }
 
   // Reset Form
