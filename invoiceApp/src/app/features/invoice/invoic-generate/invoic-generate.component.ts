@@ -247,8 +247,27 @@ export class InvoicGenerateComponent implements OnInit {
 
   generateInvoice(invoiceData: any) {
     var documentDefinition = {
-      pageSize: 'LETTER',
+      pageSize: 'A4',
       pageMargins: [40, 60, 40, 60], // [left, top, right, bottom]
+      background: function (currentPage, pageSize) {
+        return {
+          stack: [
+            {
+              canvas: [
+                {
+                  type: 'rect',
+                  x: 25, // Left margin
+                  y: 37, // Top margin
+                  w: pageSize.width - 50, // Page width - (left margin + right margin)
+                  h: pageSize.height - 90, // Page height - (top margin + bottom margin)
+                  lineWidth: 2,
+                  lineColor: '#000', // Border color
+                },
+              ],
+            },
+          ],
+        };
+      },
       content: [
         {
           text: 'MANUBHAI PANDYA',
@@ -328,29 +347,174 @@ export class InvoicGenerateComponent implements OnInit {
                 'Date : 02/12/2024 ',
                 'Time :  Morning ',
               ],
-              fontSize: 11,
+              fontSize: 12,
               bold: true,
-              lineHeight: 2,
+              lineHeight: 1.8,
               alignment: 'right',
             },
           ],
           columnGap: 10,
         },
+        {
+          //   layout: 'lightHorizontalLines', // optional
+          lineHeight: 1.2,
+          table: {
+            headerRows: 1,
+            widths: [250, 130, '*'],
+            // 	heights: 30,
+            body: [
+              //   [ 'VEGETABLES NAME', 'QUANTITY', 'TOTAL' ], //Header Row
+              [
+                { text: 'VEGETABLES NAME', style: 'header' },
+                { text: 'QUANTITY', style: 'header' },
+                { text: 'TOTAL', style: 'header' },
+              ],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+              ['Value 1', 'Value 2', 'Value 3'],
+            ],
+          },
+        },
+        {
+          margin: [0, 15, 0, 5],
+          table: {
+            headerRows: 1,
+            widths: ['*', 'auto'],
+            body: [
+              [
+                {
+                  text: 'Payment Subtotal',
+                  border: [false, false, false, false],
+                  alignment: 'right',
+                  margin: [0, 5, 0, 5],
+                },
+                {
+                  border: [false, false, false, false],
+                  text: '₹ 999.99',
+                  alignment: 'right',
+                  fillColor: '#f5f5f5',
+                  margin: [0, 5, 0, 5],
+                },
+              ],
+              [
+                {
+                  text: 'Delivery Charge (+)',
+                  border: [false, false, false, false],
+                  alignment: 'right',
+                  margin: [0, 5, 0, 5],
+                },
+                {
+                  text: '₹ 999.99',
+                  border: [false, false, false, false],
+                  fillColor: '#f5f5f5',
+                  alignment: 'right',
+                  margin: [0, 5, 0, 5],
+                },
+              ],
+              [
+                {
+                  text: 'Vegetable Return Amount (-)',
+                  border: [false, false, false, false],
+                  alignment: 'right',
+                  margin: [0, 5, 0, 5],
+                },
+                {
+                  text: '₹ 999.99',
+                  border: [false, false, false, false],
+                  fillColor: '#f5f5f5',
+                  alignment: 'right',
+                  margin: [0, 5, 0, 5],
+                },
+              ],
+              [
+                {
+                  text: 'Total Amount',
+                  bold: true,
+                  fontSize: 16,
+                  alignment: 'right',
+                  border: [false, false, false, false],
+                  margin: [0, 5, 0, 5],
+                },
+                {
+                  text: '₹ 999.99',
+                  bold: true,
+                  fontSize: 16,
+                  alignment: 'right',
+                  border: [false, false, false, false],
+                  fillColor: '#f5f5f5',
+                  margin: [0, 5, 0, 5],
+                },
+              ],
+            ],
+          },
+        },
       ],
       styles: {
         header: {
-          fontSize: 18,
+          fillColor: '#cccccc', // Gray color for the header
           bold: true,
-          margin: [0, 0, 0, 10],
+          fontSize: 13,
+          alignment: 'center',
         },
         subheader: {
           fontSize: 14,
           bold: true,
           margin: [0, 10, 0, 5],
         },
+        // Document Footer
+        documentFooterLeft: {
+          fontSize: 10,
+          margin: [25, 5, 5, 5],
+          alignment: 'left',
+        },
+        documentFooterCenter: {
+          fontSize: 10,
+          margin: [25, 5, 5, 5],
+          alignment: 'center',
+        },
+        documentFooterRight: {
+          fontSize: 10,
+          margin: [25, 5, 5, 5],
+          alignment: 'right',
+        },
       },
     };
-
     pdfMake.createPdf(documentDefinition).open();
   }
 
