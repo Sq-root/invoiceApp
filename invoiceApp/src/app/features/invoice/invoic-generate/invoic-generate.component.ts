@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs; //Pdfmake Obj
 @Component({
   selector: 'app-invoic-generate',
   templateUrl: './invoic-generate.component.html',
@@ -181,7 +183,9 @@ export class InvoicGenerateComponent implements OnInit {
     this.invoiceForm.markAllAsTouched();
     // console.log('Invoice Form  :', this.invoiceForm);
     if (this.invoiceForm.valid) {
-      console.log('Invoice Form  :', this.invoiceForm);
+      const invoiceData = this.invoiceForm.value;
+      console.log('Invoice Form  :', invoiceData);
+      this.generateInvoice(invoiceData); //Generate PDF
     }
   }
 
@@ -241,7 +245,116 @@ export class InvoicGenerateComponent implements OnInit {
       .patchValue(totalBill, { emitEvent: false });
   }
 
-  // Option 1
+  generateInvoice(invoiceData: any) {
+    var documentDefinition = {
+      pageSize: 'LETTER',
+      pageMargins: [40, 60, 40, 60], // [left, top, right, bottom]
+      content: [
+        {
+          text: 'MANUBHAI PANDYA',
+          fontSize: 25,
+          bold: true,
+          alignment: 'center',
+          color: '#000',
+        },
+        {
+          text: '(FRESH & EXOTIC VEGETABLE SUPPLIERS)',
+          fontSize: 10,
+          alignment: 'center',
+          decoration: 'underline',
+          color: '#gray',
+          margin: [0, 0, 0, 20],
+        },
+        {
+          columns: [
+            {
+              width: '35%',
+              stack: [
+                'BMC MUNICIPAL MARKET,',
+                'Borivali (West),',
+                'Mumbai-400092,',
+              ],
+              lineHeight: 1.15,
+              fontSize: 11,
+              bold: true,
+              alignment: 'left',
+              margin: [0, 0, 0, 10],
+            },
+            {
+              width: '*',
+              stack: [
+                `Mob No : 9821159981`,
+                'Tel No: 022 28901729 ',
+                '022 28908169',
+              ],
+              lineHeight: 1.2,
+              fontSize: 11,
+              bold: true,
+              alignment: 'right',
+            },
+          ],
+        },
+        {
+          canvas: [
+            { type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1 },
+          ], // Adding a horizontal line
+        },
+        {
+          margin: [0, 20, 0, 10],
+          columns: [
+            {
+              width: '35%',
+              stack: [
+                {
+                  text: 'Bill To :',
+                  alignment: 'left',
+                  bold: true,
+                  fontSize: 13,
+                  margin: [0, 0, 0, 2],
+                },
+                'Gaurav Davda',
+                'GauravDavda@gmail.com',
+                'Mumbai-40666,',
+                '+91 7303580303',
+              ],
+              lineHeight: 1.2,
+              margin: [0, 0, 0, 10],
+            },
+            {
+              width: '*',
+              margin: [0, 13, 0, 10],
+              stack: [
+                `Invoice No : 12345`,
+                'Date : 02/12/2024 ',
+                'Time :  Morning ',
+              ],
+              fontSize: 11,
+              bold: true,
+              lineHeight: 2,
+              alignment: 'right',
+            },
+          ],
+          columnGap: 10,
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10],
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5],
+        },
+      },
+    };
+
+    pdfMake.createPdf(documentDefinition).open();
+  }
+
+  // Reset Form
   resetForm() {
     this.invoiceForm.reset();
   }
