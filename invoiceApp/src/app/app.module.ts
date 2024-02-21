@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -23,7 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    MessageService,
+    MessageService,CookieService
   ],
   bootstrap: [AppComponent],
 })

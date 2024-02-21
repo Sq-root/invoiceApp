@@ -1,3 +1,3 @@
-export class GlobalConstant {
+export class GlobalConstants {
   public static baseURL: string;
 }

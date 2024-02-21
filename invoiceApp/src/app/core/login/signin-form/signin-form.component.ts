@@ -1,14 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Subject, takeUntil } from 'rxjs';
+import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 
 @Component({
   selector: 'app-signin-form',
   templateUrl: './signin-form.component.html',
   styleUrls: ['./signin-form.component.scss'],
 })
-export class SigninFormComponent implements OnInit {
+export class SigninFormComponent implements OnInit, OnDestroy {
   userLoginForm: FormGroup;
-  constructor() {}
+  authToken: string = '';
+
+  private unsubscribeAPIEventListenerData: Subject<Boolean> =
+    new Subject<Boolean>();
+  constructor(
+    private _loginService: RestSigninService,
+    private _cookieService: CookieService,
+    private route: Router
+  ) {}
 
   ngOnInit(): void {
     this.getInitalizeForm();
@@ -30,6 +42,37 @@ export class SigninFormComponent implements OnInit {
     this.userLoginForm.markAllAsTouched();
     if (this.userLoginForm.valid) {
       console.log('Form: ', this.userLoginForm.value);
+      this.doUserAuthentication(this.userLoginForm.value);
     }
+  }
+
+  doUserAuthentication(userDetails) {
+    let payload = {
+      userName: userDetails['UserName'],
+      password: userDetails['password'],
+    };
+
+    this._loginService
+      .userAuthentication(payload)
+      .pipe(takeUntil(this.unsubscribeAPIEventListenerData))
+      .subscribe((data) => {
+        //For Success
+        if (data && data['userDetails']) {
+          //Toast Msg Success
+          this.authToken = data['userDetails']['token'];
+          console.log('Token: ', this.authToken);
+          //also store UserName, Password
+          this._cookieService.set('token', this.authToken);
+          this.route.navigateByUrl('/invoice');
+        } else if (data && data['failedResponse']) {
+          //Toast Msg Error
+        } else {
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAPIEventListenerData.next(true);
+    this.unsubscribeAPIEventListenerData.complete();
   }
 }
