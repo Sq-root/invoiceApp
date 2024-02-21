@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Subject, takeUntil } from 'rxjs';
+import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs; //Pdfmake Obj
 @Component({
   selector: 'app-invoic-generate',
   templateUrl: './invoic-generate.component.html',
   styleUrls: ['./invoic-generate.component.scss'],
 })
-export class InvoicGenerateComponent implements OnInit {
+export class InvoicGenerateComponent implements OnInit, OnDestroy {
   value;
   timeCategories = ['Morning', 'Afternoon', 'Evening', 'Night'];
   unitList = [
@@ -90,8 +92,15 @@ export class InvoicGenerateComponent implements OnInit {
 
   //Form
   invoiceForm: FormGroup;
+  listofProduct = [];
+  selectedProduct = {};
 
-  constructor(private formBuilder: FormBuilder) {}
+  private unsubscribeAPIEventListenerData: Subject<Boolean> =
+    new Subject<Boolean>();
+  constructor(
+    private formBuilder: FormBuilder,
+    private _invoiceService: RestSigninService
+  ) {}
 
   ngOnInit(): void {
     //On Load Methods
@@ -151,6 +160,16 @@ export class InvoicGenerateComponent implements OnInit {
     });
   }
 
+  //Method: Get All Product
+  getAllProduct() {
+    this._invoiceService
+      .getproductdetails()
+      .pipe(takeUntil(this.unsubscribeAPIEventListenerData))
+      .subscribe((data) => {
+        console.log('Product: ', data);
+      });
+  }
+
   // Method: Used to get only product table obj
   get BillofproductArray() {
     return this.invoiceForm.get('BillOfproducts') as FormArray;
@@ -178,7 +197,7 @@ export class InvoicGenerateComponent implements OnInit {
     this.calculateInvoiceSubTotal();
   }
 
-  // Method : Generate Bill and Submti to API
+  // Method : Generate Bill and Submit to API
   getInvoiceDetails() {
     this.invoiceForm.markAllAsTouched();
     // console.log('Invoice Form  :', this.invoiceForm);
@@ -490,5 +509,10 @@ export class InvoicGenerateComponent implements OnInit {
   // Reset Form
   resetForm() {
     this.invoiceForm.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAPIEventListenerData.next(true);
+    this.unsubscribeAPIEventListenerData.complete();
   }
 }

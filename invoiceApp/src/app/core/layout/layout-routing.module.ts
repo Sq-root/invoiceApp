@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
+import { AuthenticateUserService } from 'src/app/shared/Auth/authenticate-user.guard';
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
+        canLoad: [AuthenticateUserService], //Check User Authentication
         loadChildren: () =>
           import('../../features/invoice/invoice.module').then(
             (m) => m.InvoiceModule

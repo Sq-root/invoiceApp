@@ -1,6 +1,6 @@
+import { GlobalConstants } from './../../../shared/model/dataModel';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { GlobalConstant } from 'src/app/shared/model/dataModel';
 import { BaseService } from 'src/app/shared/services/base.service';
 
 @Component({
@@ -24,8 +24,8 @@ export class MasterPageComponent implements OnInit {
   // Method: Used to fetch all Config det ails
   fetchConfigDetails() {
     this._utilityService.readConfigDetails().subscribe((data) => {
-      GlobalConstant.baseURL = data['configs']['baseURL'];
-      console.log('baseURl: ', GlobalConstant.baseURL);
+      GlobalConstants.baseURL = data['configs']['baseURL'];
+      console.log('baseURl: ', GlobalConstants.baseURL);
     });
   }
 

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, takeUntil } from 'rxjs';
+import { GlobalConstants } from 'src/app/shared/model/dataModel';
 import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 
 @Component({
@@ -60,9 +61,10 @@ export class SigninFormComponent implements OnInit, OnDestroy {
         if (data && data['userDetails']) {
           //Toast Msg Success
           this.authToken = data['userDetails']['token'];
+          GlobalConstants.Token = this.authToken;
           console.log('Token: ', this.authToken);
-          //also store UserName, Password
           this._cookieService.set('token', this.authToken);
+          this._cookieService.set('username', userDetails['UserName']);
           this.route.navigateByUrl('/invoice');
         } else if (data && data['failedResponse']) {
           //Toast Msg Error
