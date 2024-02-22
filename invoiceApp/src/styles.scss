@@ -176,3 +176,12 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 6.5rem;
   text-align: right;
 }
+
+//Toast Msg
+// ngx-toastr
+.toast-container .ngx-toastr {
+  padding: 10px 15px 6px 50px;
+  width: 300px;
+  border-radius: 3px 3px 3px 3px;
+  background-size: 17px;
+}

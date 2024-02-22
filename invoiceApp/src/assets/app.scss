@@ -1,3 +1,5 @@
 @import "./styles/_variables.scss";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "./font/Roboto/stylesheet.scss";
+// regular style toast
+@import 'ngx-toastr/toastr';
