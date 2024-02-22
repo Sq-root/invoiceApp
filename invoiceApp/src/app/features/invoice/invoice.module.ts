@@ -14,12 +14,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { AddNewproductComponent } from './add-newproduct/add-newproduct.component';
 @NgModule({
   declarations: [
     InvoiceContainerComponent,
     SidemenuComponent,
     HeaderComponent,
     InvoicGenerateComponent,
+    AddNewproductComponent,
   ],
   imports: [
     CommonModule,
