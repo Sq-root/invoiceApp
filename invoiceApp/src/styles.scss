@@ -190,19 +190,40 @@ input[type="number"]::-webkit-outer-spin-button {
 //Calender
 .invoice-create-container .p-element.ng-calender {
   // .p-calender {
-    .p-inputtext {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol";
-      font-size: 1rem;
-      color: #495057;
-      background: #ffffff;
-      padding: 0.75rem 0.75rem;
-      border: 1px solid #ced4da;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s,
-        box-shadow 0.2s;
-      appearance: none;
-      border-radius: 0px;
-    }
+  .p-inputtext {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    font-size: 1rem;
+    color: #495057;
+    background: #ffffff;
+    padding: 0.75rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+      box-shadow 0.2s;
+    appearance: none;
+    border-radius: 0px;
   }
-
+  .p-datepicker .p-datepicker-header {
+    height: 40px;
+    font-size: small;
+    padding: 0.5rem;
+    color: #495057;
+    background: #ffffff;
+    font-weight: 600;
+    margin: 0;
+    border-bottom: 1px solid #dee2e6;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  .p-datepicker table {
+    font-size: 14px;
+    margin: 0.5rem 0;
+  }
+  .p-datepicker table td {
+    padding: 0;
+  }
+  .pi {
+    font-size: 12px;
+  }
+}

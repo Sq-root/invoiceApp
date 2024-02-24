@@ -66,28 +66,23 @@ export class RESTintercepterInterceptor implements HttpInterceptor {
             if (error && error['error']) {
               this.handelError(error['error']);
             }
-            // switch (error.status) {
-            //   case 400:
-            //     // do Something
-            //     break;
-            //   case 401:
-            //     if (error && error['error']) {
-            //       this.handelError(error['error']);
-            //     }
-            //     break;
-            //   case 404:
-            //     if (error && error['error']) {
-            //       this.handelError(error['error']);
-            //     }
-            //     break;
-            //   case 500:
-            //     // this.router.navigateByUrl('/internal-server-error');
-            //     break;
-            //   default:
-            //     // do something
-            //     // this.router.navigateByUrl('/error');
-            //     break;
-            // }
+            switch (error.status) {
+              case 400:
+                // do Something
+                break;
+              case 401:
+                this.router.navigateByUrl('/login');
+                break;
+              case 404:
+                break;
+              case 500:
+                // this.router.navigateByUrl('/internal-server-error');
+                break;
+              default:
+                // do something
+                // this.router.navigateByUrl('/error');
+                break;
+            }
           }
         } else {
           console.error('Other Errors');
