@@ -8,4 +8,6 @@
 
 <!-- <button class="btn btn-primary" (click)="show()">SHow</button> -->
 <!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
+  <ng-container *ngIf="dataFetched" >
+    <router-outlet></router-outlet>
+  </ng-container>

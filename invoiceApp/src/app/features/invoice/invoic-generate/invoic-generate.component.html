@@ -152,16 +152,16 @@
                   <!-- Product Dropdown  -->
                   <td>
                     <div class=" card flex justify-content-center border-gray">
-                      <p-dropdown [options]="countries" optionLabel="name" [filter]="true" filterBy="name"
+                      <p-dropdown [options]="products" optionLabel="itemName" [filter]="true" filterBy="itemName"
                         [showClear]="true" placeholder="Item Name" formControlName="productName">
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                           <div class="flex align-items-center gap-2">
-                            <div>{{ selectedOption.name }}</div>
+                            <div>{{ selectedOption.itemName }}</div>
                           </div>
                         </ng-template>
                         <ng-template let-item pTemplate="item">
                           <div class="flex align-items-center gap-2">
-                            <div>{{ item.name }}</div>
+                            <div>{{ item.itemName }}</div>
                           </div>
                         </ng-template>
                       </p-dropdown>
@@ -170,33 +170,31 @@
                   <!-- Quan -->
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
                         formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
-                      <!-- <input class="form-control" type="text" placeholder="Default input" formControlName="quantity"
-                        (ngModelChange)="calculateTotalPrice(i)"> -->
-                      <p-dropdown [options]="unitList" optionLabel="item" class="unitDropdown" [showClear]="true"
+                      <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true"
                         placeholder="Unit" formControlName="unit">
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                           <div class="flex align-items-center gap-2">
-                            <div>{{ selectedOption.item }}</div>
+                            <div>{{ selectedOption }}</div>
                           </div>
                         </ng-template>
                         <ng-template let-unit pTemplate="item">
                           <div class="flex align-items-center gap-2">
-                            <div>{{ unit.item }}</div>
+                            <div>{{ unit }}</div>
                           </div>
                         </ng-template>
                       </p-dropdown>
                     </div>
                   </td>
                   <!-- Rate   -->
-                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
+                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
                       formControlName="rate" (ngModelChange)="calculateTotalPrice(i)">
                     </p-inputNumber>
                   </td>
                   <!-- AMount  -->
                   <td>
-                    <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="2"
+                    <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
                       formControlName="amount" (ngModelChange)="calculateInvoiceSubTotal()">
                     </p-inputNumber>
                   </td>
@@ -221,20 +219,20 @@
             <div class="audit-property-1 flex-container">
               <p class="fw-medium">Sub Total</p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="2" formControlName="subTotal" name="subTotal" id="subTotal" [readonly]="true">
+                [maxFractionDigits]="3" formControlName="subTotal" name="subTotal" id="subTotal" [readonly]="true">
               </p-inputNumber>
             </div>
             <div class="audit-property-2 flex-container">
               <p class="fw-medium">Delivery Charge <span class="text-danger">(+)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="2" formControlName="deliveryCharge" name="deliveryCharge" id="deliveryCharge"
+                [maxFractionDigits]="3" formControlName="deliveryCharge" name="deliveryCharge" id="deliveryCharge"
                 (ngModelChange)="calculateDeliveryCharge()">
               </p-inputNumber>
             </div>
             <div class="audit-property-3 flex-container">
               <p class="fw-medium">Vegetable Return Amount <span class="text-danger">(-)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="2" formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
+                [maxFractionDigits]="3" formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
                 (ngModelChange)="calculateCancelledOrderCharge()">
               </p-inputNumber>
             </div>
@@ -244,7 +242,7 @@
               </div>
               <div class="audit-value">
                 <p-inputNumber inputId="minmaxfraction" mode="decimal" [ngStyle]="{'border': 'none'}" placeholder="0.00"
-                  [maxFractionDigits]="2" formControlName="totalBill" name="totalBill" id="totalBill" [readonly]="true">
+                  [maxFractionDigits]="3" formControlName="totalBill" name="totalBill" id="totalBill" [readonly]="true">
                 </p-inputNumber>
               </div>
             </div>

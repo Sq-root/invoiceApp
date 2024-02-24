@@ -9,8 +9,11 @@ import { BaseService } from 'src/app/shared/services/base.service';
   styleUrls: ['./master-page.component.scss'],
 })
 export class MasterPageComponent implements OnInit {
-  constructor(private _utilityService: BaseService,private spinner: NgxSpinnerService) {}
-
+  constructor(
+    private _utilityService: BaseService,
+    private spinner: NgxSpinnerService
+  ) {}
+  dataFetched: boolean = false;
   ngOnInit(): void {
     console.log('Master');
     // OnLoad Method
@@ -25,11 +28,12 @@ export class MasterPageComponent implements OnInit {
   fetchConfigDetails() {
     this._utilityService.readConfigDetails().subscribe((data) => {
       GlobalConstants.baseURL = data['configs']['baseURL'];
+      this.dataFetched = true;
       console.log('baseURl: ', GlobalConstants.baseURL);
     });
   }
 
-  show(){
+  show() {
     this.spinner.show();
   }
 }

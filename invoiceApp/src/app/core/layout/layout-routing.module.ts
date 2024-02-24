@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'invoice',
-        // canLoad: [AuthenticateUserService], //Check User Authentication
+        canLoad: [AuthenticateUserService], //Check User Authentication
         loadChildren: () =>
           import('../../features/invoice/invoice.module').then(
             (m) => m.InvoiceModule

@@ -17,38 +17,31 @@ export class RestSigninService {
         map((response) => {
           if (response && response['sucessResponse']) {
             if (response['sucessResponse']['status'] === 200) {
-              let result = response['sucessResponse']['data']['userDetails'];
+              let result = response['sucessResponse']['data'];
               return result;
             }
-          } else if (response && response['failedResponse']) {
-            return response;
           }
-          return response;
         }),
         catchError((e) => throwError(this.errorHandler(e)))
       );
   }
 
   //Method: Get All PRoducts
-  getproductdetails(productName?:string) {
-    return this._http
-      .get(GlobalConstants.baseURL + '/api/v1/item?itemName=' + productName)
-      .pipe(
-        map((response) => {
-          if (response && response['sucessResponse']) {
-            if (response['sucessResponse']['status'] === 200) {
-              let result = response['sucessResponse']['data'];
-              return result;
-            }
-          } else if (response && response['failedResponse']) {
-            return response;
+  getproductdetails() {
+    return this._http.get(GlobalConstants.baseURL + 'api/v1/item').pipe(
+      map((response) => {
+        if (response && response['sucessResponse']) {
+          if (response['sucessResponse']['status'] === 200) {
+            let result = response['sucessResponse']['data'];
+            return result;
           }
-          return response;
-        }),
-        catchError((e) => throwError(this.errorHandler(e)))
-      );
+        }
+        return response;
+      }),
+      catchError((e) => throwError(this.errorHandler(e)))
+    );
   }
   errorHandler(e: any): any {
-    throw new Error('Method not implemented.');
+    throw new Error(e);
   }
 }

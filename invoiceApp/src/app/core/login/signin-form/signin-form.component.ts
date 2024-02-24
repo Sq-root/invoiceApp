@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject, takeUntil } from 'rxjs';
 import { GlobalConstants } from 'src/app/shared/model/dataModel';
 import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin-form',
@@ -22,7 +24,8 @@ export class SigninFormComponent implements OnInit, OnDestroy {
     private _loginService: RestSigninService,
     private _cookieService: CookieService,
     private route: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private _msgSerivce: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -61,16 +64,15 @@ export class SigninFormComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         //For Success
         if (data && data['userDetails']) {
-          //Toast Msg Success
           this.authToken = data['userDetails']['token'];
           GlobalConstants.Token = this.authToken;
-          console.log('Token: ', this.authToken);
           this._cookieService.set('token', this.authToken);
           this._cookieService.set('username', userDetails['UserName']);
-          this.route.navigateByUrl('/invoice');
-        } else if (data && data['failedResponse']) {
-          //Toast Msg Error
+          this._msgSerivce.success('Successfully Logged In');
+          this.route.navigateByUrl('/invoice/create');
         } else {
+          this._msgSerivce.error('Invalid UserName or Password');
+          console.log('Logs: ', data);
         }
       });
   }
