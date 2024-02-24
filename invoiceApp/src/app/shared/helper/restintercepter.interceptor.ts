@@ -37,7 +37,7 @@ export class RESTintercepterInterceptor implements HttpInterceptor {
       console.log('Get Tkern: ', Token);
       // If we have a token, we set it to the header
       request = request.clone({
-        setHeaders: { Authorization: 'token ' + Token },
+        setHeaders: { token: Token },
         headers: request.headers
           .set('Content-Type', 'application/json')
           .set('Access-Control-Allow-Origin', '*')

@@ -30,12 +30,11 @@ export class RestSigninService {
   getproductdetails() {
     return this._http.get(GlobalConstants.baseURL + 'api/v1/item').pipe(
       map((response) => {
-        if (response && response['sucessResponse']) {
-          if (response['sucessResponse']['status'] === 200) {
-            let result = response['sucessResponse']['data'];
-            return result;
-          }
+        if (response && response['status'] === 200) {
+          let result = response['data'];
+          return result;
         }
+
         return response;
       }),
       catchError((e) => throwError(this.errorHandler(e)))
