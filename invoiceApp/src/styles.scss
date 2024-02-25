@@ -22,6 +22,29 @@ li {
   list-style: none;
 }
 
+/* Set scrollbar width and height */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 14px;
+  border-radius: 10px;
+}
+
+/* Track styles */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light grey */
+}
+
+/* Handle styles */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Grey */
+}
+
+/* Handle hover styles */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Dark grey */
+}
+
+
 // input tag
 .border-gray {
   border: 2px solid #d7d7d9;

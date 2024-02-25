@@ -55,16 +55,16 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         customerEmail: [''],
         customerPhoneNumber: [''],
         customerMobileNumber: [''],
-        customerAddress1: ['', Validators.required],
+        customerAddress1: [''],
         customerAddress2: [''],
       }),
       BusinessDetails: this.formBuilder.group({
-        BusinessName: [''],
-        BusinessEmail: [''],
-        BusinessPhoneNumber: [''],
-        BusinessMobileNumber: [''],
-        BusinessAddress1: [''],
-        BusinessAddress2: [''],
+        BusinessName: ['MANUBHAI PANDYA'],
+        BusinessEmail: ['mkpandya@gmail.com'],
+        BusinessPhoneNumber: ['022 28901729'],
+        BusinessMobileNumber: ['9821159981'],
+        BusinessAddress1: ['Bmc Municipal Market'],
+        BusinessAddress2: ['Borivali (West), Mumbai 400092'],
       }),
       BillOfproducts: this.formBuilder.array([
         this.formBuilder.group({
@@ -124,6 +124,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   // Method : Generate Bill and Submit to API
   getInvoiceDetails() {
     this.invoiceForm.markAllAsTouched();
+    console.log('Invoice Form  State :', this.invoiceForm);
     if (this.invoiceForm.valid) {
       const invoiceData = this.invoiceForm.value;
       console.log('Invoice Form  :', invoiceData);
@@ -244,7 +245,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
               stack: [
                 'BMC MUNICIPAL MARKET,',
                 'Borivali (West),',
-                'Mumbai-400092,',
+                'Mumbai 400092,',
               ],
               lineHeight: 1.15,
               fontSize: 11,

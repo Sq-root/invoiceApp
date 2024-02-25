@@ -9,9 +9,10 @@ const routes: Routes = [
     path: '',
     component: InvoiceContainerComponent,
     children: [
+      { path: '', redirectTo: 'create', pathMatch: 'full' },
       { path: 'create', component: InvoicGenerateComponent },
-      { path: 'addproduct', component: AddNewproductComponent }
-  ],
+      { path: 'addproduct', component: AddNewproductComponent },
+    ],
   },
 ];
 
