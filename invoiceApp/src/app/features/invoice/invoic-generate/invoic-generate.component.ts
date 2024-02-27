@@ -200,7 +200,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     ).replace(' ', '_');
     const fileName: String =
       custName + '_' + 'BillNo' + '_' + invoicedata['invoiceNo'];
-    let dd = {
+    let dd ={
       pageSize: 'A4',
       pageMargins: [40, 60, 40, 60], // [left, top, right, bottom]
       background: function (currentPage, pageSize) {
@@ -234,38 +234,25 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           text: '(FRESH & EXOTIC VEGETABLE SUPPLIERS)',
           fontSize: 10,
           alignment: 'center',
-          decoration: 'underline',
           color: '#gray',
-          margin: [0, 0, 0, 20],
+          italics:true,
+          margin: [0, 0, 0, 3],
         },
         {
-          columns: [
-            {
-              width: '35%',
-              stack: [
-                'BMC MUNICIPAL MARKET,',
-                'Borivali (West),',
-                'Mumbai 400092,',
-              ],
-              lineHeight: 1.15,
-              fontSize: 11,
-              bold: true,
-              alignment: 'left',
-              margin: [0, 0, 0, 10],
-            },
-            {
-              width: '*',
-              stack: [
-                `Mob No : 9821159981`,
-                'Tel No: 022 28901729 ',
-                '022 28908169',
-              ],
-              lineHeight: 1.2,
-              fontSize: 11,
-              bold: true,
-              alignment: 'right',
-            },
-          ],
+          text: 'BMC MUNICIPAL MARKET,Borivali (West),Mumbai 400092 ',
+          fontSize: 10,
+          alignment: 'center',
+          color: '#gray',
+          bold:true,
+          margin: [0, 0, 0, 4],
+        },
+        {
+          text: 'Mob No : 9821159981 9870399510  Ph No: 022 28901729',
+          fontSize: 10,
+          alignment: 'center',
+          color: '#gray',
+          bold:true,
+          margin: [0, 0, 0, 10],
         },
         {
           canvas: [
@@ -327,7 +314,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 { text: 'TOTAL', style: 'header' },
               ],
               ...invoicedata.BillOfproducts.map((item) => [
-                { text: item.productName.itemName, font: 'NotoSans' },
+                { text: item.productName.itemName, font: 'NotoSans', },
                 `${item.quantity} (${item.unit})`,
                 item.amount,
               ]),
