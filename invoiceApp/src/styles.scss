@@ -44,7 +44,6 @@ li {
   background: #555; /* Dark grey */
 }
 
-
 // input tag
 .border-gray {
   border: 2px solid #d7d7d9;
@@ -117,6 +116,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+.p-dropdown:not(.p-disabled).p-focus {
+  outline: 0 none;
+  box-shadow: none;
+  border-color: #d7d7d9;
+}
 .p-dropdown.p-dropdown-clearable .p-dropdown-label {
   padding-right: 1.75rem;
   font-size: small;

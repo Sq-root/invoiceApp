@@ -39,7 +39,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //On Load Methods
     this.getInitalizedForm();
-    this.getAllProduct();
+    // this.getAllProduct();
   }
 
   // Method : Initalized Invoice Form

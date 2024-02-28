@@ -23,6 +23,26 @@
     border-color: #d7d7d9;
     border: 2px;
   }
+
+  .statement-container .add-item-section button {
+    background-color: #747d9d;
+    color: white;
+    border: none;
+    font-size: 14px;
+    border-radius:  0px;
+    padding:9px 19px
+  }
+
+  .p-add.p-button-sucess {
+    color: #ffffff;
+    border: 1px solid #747d9d;
+    background: #747d9d;
+    &:hover,
+    &:focus {
+      background: #68739d;
+      border: 1px solid #68739d;
+    }
+}
 }
 
 //For date
