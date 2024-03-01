@@ -170,10 +170,10 @@
                   <!-- Quan -->
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled"  [maxFractionDigits]="3"
                         formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
-                      <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true"
-                        placeholder="Unit" formControlName="unit">
+                      <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true" placeholder="Unit"
+                        formControlName="unit">
                         <ng-template pTemplate="selectedItem" let-selectedOption>
                           <div class="flex align-items-center gap-2">
                             <div>{{ selectedOption }}</div>
@@ -188,14 +188,14 @@
                     </div>
                   </td>
                   <!-- Rate   -->
-                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
-                      formControlName="rate" (ngModelChange)="calculateTotalPrice(i)">
+                  <td> <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [minFractionDigits]="2"
+                      [maxFractionDigits]="3" formControlName="rate" (ngModelChange)="calculateTotalPrice(i)">
                     </p-inputNumber>
                   </td>
                   <!-- AMount  -->
                   <td>
-                    <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
-                      formControlName="amount" (ngModelChange)="calculateInvoiceSubTotal()">
+                    <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [minFractionDigits]="2"
+                      [maxFractionDigits]="3" formControlName="amount" (ngModelChange)="calculateInvoiceSubTotal()">
                     </p-inputNumber>
                   </td>
                   <!-- Action Btn  -->
