@@ -142,8 +142,7 @@
                   <th>Quantity</th>
                   <th>Rate</th>
                   <th>Amount</th>
-                  <th><button pButton pRipple icon="pi pi-plus " class="p-button-rounded p-button-sucess p-add"
-                      (click)="addNewProduct()"></button>
+                  <th>
                   </th>
                 </tr>
               </ng-template>
@@ -236,9 +235,8 @@
             <div class="audit-property-3 flex-container">
               <p class="fw-medium">Vegetable Return Amount <span class="text-danger">(-)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [minFractionDigits]="2" [maxFractionDigits]="3"
-                formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
-                (ngModelChange)="calculateCancelledOrderCharge()">
+                [minFractionDigits]="2" [maxFractionDigits]="3" formControlName="cancelledCharge" name="cancelledCharge"
+                id="cancelledCharge" (ngModelChange)="calculateCancelledOrderCharge()">
               </p-inputNumber>
             </div>
             <div class="audit-property-4 flex-container">
