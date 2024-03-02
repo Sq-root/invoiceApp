@@ -6,14 +6,21 @@
   width: 200px;
   background: #363b4d;
   // padding-inline: 10px;
-  .logo img {
-    width: 100%;
+  .company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-bottom: 2px solid rgb(255, 255, 255);
+    padding: 10px;
+    img {
+      width: 70%;
+      // height: 100px;
+    }
   }
+}
 
-  hr {
-    background-color: white;
-  }
+hr {
+  background-color: white;
 }
 
 .menu-items {

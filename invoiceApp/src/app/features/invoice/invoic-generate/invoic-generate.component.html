@@ -170,7 +170,7 @@
                   <!-- Quan -->
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled"  [maxFractionDigits]="3"
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
                         formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
                       <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true" placeholder="Unit"
                         formControlName="unit">
@@ -222,20 +222,22 @@
             <div class="audit-property-1 flex-container">
               <p class="fw-medium">Sub Total</p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="3" formControlName="subTotal" name="subTotal" id="subTotal" [readonly]="true">
+                [minFractionDigits]="2" [maxFractionDigits]="3" formControlName="subTotal" name="subTotal" id="subTotal"
+                [readonly]="true">
               </p-inputNumber>
             </div>
             <div class="audit-property-2 flex-container">
               <p class="fw-medium">Delivery Charge <span class="text-danger">(+)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="3" formControlName="deliveryCharge" name="deliveryCharge" id="deliveryCharge"
-                (ngModelChange)="calculateDeliveryCharge()">
+                [minFractionDigits]="2" [maxFractionDigits]="3" formControlName="deliveryCharge" name="deliveryCharge"
+                id="deliveryCharge" (ngModelChange)="calculateDeliveryCharge()">
               </p-inputNumber>
             </div>
             <div class="audit-property-3 flex-container">
               <p class="fw-medium">Vegetable Return Amount <span class="text-danger">(-)</span></p>
               <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiledd" placeholder="0.00"
-                [maxFractionDigits]="3" formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
+                [minFractionDigits]="2" [maxFractionDigits]="3"
+                formControlName="cancelledCharge" name="cancelledCharge" id="cancelledCharge"
                 (ngModelChange)="calculateCancelledOrderCharge()">
               </p-inputNumber>
             </div>
@@ -245,7 +247,8 @@
               </div>
               <div class="audit-value">
                 <p-inputNumber inputId="minmaxfraction" mode="decimal" [ngStyle]="{'border': 'none'}" placeholder="0.00"
-                  [maxFractionDigits]="3" formControlName="totalBill" name="totalBill" id="totalBill" [readonly]="true">
+                  [minFractionDigits]="2" [maxFractionDigits]="3" formControlName="totalBill" name="totalBill"
+                  id="totalBill" [readonly]="true">
                 </p-inputNumber>
               </div>
             </div>

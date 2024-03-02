@@ -39,7 +39,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //On Load Methods
     this.getInitalizedForm();
-    // this.getAllProduct();
+    this.getAllProduct();
   }
 
   // Method : Initalized Invoice Form
@@ -140,14 +140,13 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     console.log('selectedProduct: ', selectedProduct);
 
     // let quantity = selectedProduct.value['quantity'];
-    let quantity: number = selectedProduct.get('quantity').value;
-    let rate: number = selectedProduct.get('rate').value;
+    let quantity = Number(selectedProduct.get('quantity').value);
+    let rate = Number(selectedProduct.get('rate').value);
     // let unit:number = selectedProduct.get('unit').value;
 
-    //Check for Gram Unit
-    let amount = Number((Number(quantity) * Number(rate)).toFixed(3));
+    let amount = (quantity * rate).toFixed(2);
+    console.log('Total Amount: ', amount);
     selectedProduct.get('amount').patchValue(amount, { emitEvent: false });
-
     this.calculateInvoiceSubTotal();
   }
 
@@ -157,12 +156,10 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let BillOfproducts = (this.invoiceForm.get('BillOfproducts') as FormArray)
       .controls;
     BillOfproducts.forEach((formObj) => {
-      totalAmount += formObj.get('amount').value;
+      totalAmount += Number(formObj.get('amount').value);
     });
-    totalAmount = Number(totalAmount.toFixed(3));
-    this.invoiceForm
-      .get('subTotal')
-      .patchValue(totalAmount, { emitEvent: false });
+    const amount = totalAmount.toFixed(2);
+    this.invoiceForm.get('subTotal').patchValue(amount, { emitEvent: false });
 
     this.calculateDeliveryCharge();
     this.calculateCancelledOrderCharge();
@@ -171,9 +168,8 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   //Method: Add Delivery Charge
   calculateDeliveryCharge() {
     let subTotal = this.invoiceForm.get('subTotal').value;
-    let totalBill = Number(
-      (subTotal + this.invoiceForm.get('deliveryCharge').value).toFixed(3)
-    );
+    let totalBill = (Number(subTotal) + Number(this.invoiceForm.get('deliveryCharge').value)
+    ).toFixed(3);
     this.invoiceForm
       .get('totalBill')
       .patchValue(totalBill, { emitEvent: false });
@@ -181,14 +177,13 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
 
   //Method: Remove Cancelled Order Charge Charge
   calculateCancelledOrderCharge() {
-    let subTotal: number = this.invoiceForm.get('subTotal').value;
+    let subTotal: number = Number(this.invoiceForm.get('subTotal').value);
     let totalBill = Number(
-      (
-        subTotal +
-        this.invoiceForm.get('deliveryCharge').value -
-        this.invoiceForm.get('cancelledCharge').value
-      ).toFixed(3)
-    );
+      subTotal +
+        Number(this.invoiceForm.get('deliveryCharge').value) -
+        Number(this.invoiceForm.get('cancelledCharge').value)
+    ).toFixed(2);
+
     this.invoiceForm
       .get('totalBill')
       .patchValue(totalBill, { emitEvent: false });
@@ -200,7 +195,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     ).replace(' ', '_');
     const fileName: String =
       custName + '_' + 'BillNo' + '_' + invoicedata['invoiceNo'];
-    let dd ={
+    let dd = {
       pageSize: 'A4',
       pageMargins: [40, 60, 40, 60], // [left, top, right, bottom]
       background: function (currentPage, pageSize) {
@@ -235,7 +230,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           fontSize: 10,
           alignment: 'center',
           color: '#gray',
-          italics:true,
+          // italics:true,
           margin: [0, 0, 0, 3],
         },
         {
@@ -243,7 +238,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           fontSize: 10,
           alignment: 'center',
           color: '#gray',
-          bold:true,
+          bold: true,
           margin: [0, 0, 0, 4],
         },
         {
@@ -251,7 +246,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           fontSize: 10,
           alignment: 'center',
           color: '#gray',
-          bold:true,
+          bold: true,
           margin: [0, 0, 0, 10],
         },
         {
@@ -314,7 +309,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 { text: 'TOTAL', style: 'header' },
               ],
               ...invoicedata.BillOfproducts.map((item) => [
-                { text: item.productName.itemName, font: 'NotoSans', },
+                { text: item.productName.itemName, font: 'NotoSans' },
                 `${item.quantity} (${item.unit})`,
                 item.amount,
               ]),
