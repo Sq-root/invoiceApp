@@ -11,7 +11,7 @@ export class BaseService {
 
   readConfigDetails() {
     return this._http
-      .get('../../../assets/config.json')
+      .get('assets/config.json')
       .pipe(map((res: any) => res));
   }
 

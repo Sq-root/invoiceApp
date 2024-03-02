@@ -29,8 +29,8 @@
     color: white;
     border: none;
     font-size: 14px;
-    border-radius:  0px;
-    padding:9px 19px
+    border-radius: 0px;
+    padding: 9px 19px;
   }
 
   .p-add.p-button-sucess {
@@ -42,7 +42,7 @@
       background: #68739d;
       border: 1px solid #68739d;
     }
-}
+  }
 }
 
 //For date
@@ -84,4 +84,13 @@
 
 .invalid-field {
   border: 1px solid red;
+}
+
+.invoice-create-container .ng-calender {
+  font-size: 1rem;
+  color: #495057;
+  background: #ffffff;
+  padding: 0.75rem 0.75rem;
+  border: 2px solid #ced4da;
+  height: 40px;
 }

@@ -28,6 +28,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   //Form
   invoiceForm: FormGroup;
   selectedProduct = {};
+  invoiceDate: String = '';
 
   private unsubscribeAPIEventListenerData: Subject<Boolean> =
     new Subject<Boolean>();
@@ -121,6 +122,20 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     this.calculateInvoiceSubTotal();
   }
 
+  selectDate(currentDate) {
+    let date = new Date(currentDate);
+    console.log('Date: ', date);
+    let dt = date.getDate();
+    let mn = date.getMonth();
+    mn++;
+    let yy = date.getFullYear();
+    this.invoiceDate = dt + '/' + mn + '/' + yy;
+    console.log('Date: ', this.invoiceDate);
+    // this.invoiceForm
+    //   .get('invoiceDate')
+    //   .patchValue(newDate, { emitEvent: false });
+  }
+
   // Method : Generate Bill and Submit to API
   getInvoiceDetails() {
     this.invoiceForm.markAllAsTouched();
@@ -191,6 +206,10 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   }
 
   generateInvoice(invoicedata: any) {
+    invoicedata['invoiceDate'] = this.invoiceDate;
+    // this.invoiceForm
+    // .get('invoiceDate')
+    // .patchValue(this.invoiceDate, { emitEvent: false });
     const custName: string = String(
       invoicedata['customerDetails']['customerName']
     ).replace(' ', '_');
@@ -306,14 +325,12 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
               margin: [0, 13, 0, 10],
               stack: [
                 { text: `Invoice No: ${(Math.random() * 1000).toFixed(0)}` },
-                {
-                  text: `Date: 02/03/2024`,
-                },
                 // {
-                //   text: `Date: ${new Date(
-                //     invoicedata.invoiceDate
-                //   ).toDateString()}`,
+                //   text: `Date: 02/03/2024`,
                 // },
+                {
+                  text: `Date: ${invoicedata.invoiceDate}`,
+                },
                 { text: `Time: ${invoicedata.invoiceTime}` },
               ],
               fontSize: 12,
