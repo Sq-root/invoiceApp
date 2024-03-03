@@ -160,7 +160,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let rate = Number(selectedProduct.get('rate').value);
     // let unit:number = selectedProduct.get('unit').value;
 
-    let amount = (quantity * rate).toFixed(2);
+    let amount = (Number(quantity * rate)).toFixed(2);
     console.log('Total Amount: ', amount);
     selectedProduct.get('amount').patchValue(amount, { emitEvent: false });
     this.calculateInvoiceSubTotal();

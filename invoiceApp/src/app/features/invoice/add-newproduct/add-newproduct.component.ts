@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-newproduct',
@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddNewproductComponent implements OnInit {
   productForm: FormGroup;
+  unitList = ['Kg', 'Gram', 'Pc', 'Dozen', 'Box', 'Pkt', 'Judi'];
 
   constructor(private fb: FormBuilder) {}
 
@@ -18,8 +19,8 @@ export class AddNewproductComponent implements OnInit {
 
   getInitalizedForm() {
     this.productForm = this.fb.group({
-      productName: [],
-      productRate: this.fb.array([
+      productName: ['', Validators.required],
+      productRateUnit: this.fb.array([
         this.fb.group({
           rate: ['', Validators.required],
           unit: [0, [Validators.required]],
@@ -27,4 +28,25 @@ export class AddNewproductComponent implements OnInit {
       ]),
     });
   }
+
+    // Method: Used to get only product table obj
+    get productRateUnitMapping() {
+      return this.productForm.get('productRateUnit') as FormArray;
+    }
+
+    //Method: Add New ProductRateUnit for Invoice
+    addProductRateUnit() {
+      let newEntity = this.productForm.get('productRateUnit') as FormArray;
+      newEntity.push(
+        this.fb.group({
+          rate: ['', Validators.required],
+          unit: ['', [Validators.required]],
+        }),
+      );
+    }
+
+    //Method: Remove New removeProductRateUnit
+    removeProductRateUnit(index: number) {
+      this.productRateUnitMapping.removeAt(index);
+    }
 }

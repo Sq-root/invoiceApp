@@ -2,7 +2,7 @@
   <div class="row product-container gap-4">
     <div class="col-7">
       <div class=" new-product-container card">
-        <form action="">
+        <form [formGroup]="productForm">
           <!-- <div class="card-header">
             Featured
           </div> -->
@@ -10,12 +10,40 @@
             <h5 class="card-title">Product Information</h5>
             <div class="mb-3">
               <label for="productName" class="form-label">Item Name</label>
-              <input type="email" class="form-control" id="productName" placeholder="Enter Item Name">
+              <input type="text" class="form-control" id="productName" name="productName" formControlName="productName"
+                placeholder="Enter Item Name">
             </div>
             <div class="mb-3">
               <label for="productName" class="form-label">Price/Unit</label>
               <div class="product-unit-container">
+                <ul class="list-group">
+                  <li class="list-group-item" formArrayName="productRateUnit"
+                    *ngFor="let product of productForm.get('productRateUnit')['controls']; let i = index;">
+                    <div [formGroupName]="i" class="row">
+                      <div class="col-4">
+                        <input type="text" formControlName="name" class="form-control" id="firstName"
+                          placeholder="Product name" value="" required>
+                        <!-- <span *ngIf="product.get('name').errors && product.get('name').hasError('required')"
+                          class="validation">* required</span> -->
+                      </div>
+                      <div class="col-6">
+                        <input type="text" formControlName="description" class="form-control" id="firstName"
+                          placeholder="Product description" value="" required>
+                        <!-- <span
+                          *ngIf="product.get('description').errors && product.get('description').hasError('required')"
+                          class="validation">* required</span> -->
 
+                      </div>
+                      <div class="col-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-trash-fill" viewBox="0 0 16 16">
+                          <path
+                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
 

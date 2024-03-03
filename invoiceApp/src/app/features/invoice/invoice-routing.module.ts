@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'create', pathMatch: 'full' },
       { path: 'create', component: InvoicGenerateComponent },
-      { path: 'addproduct', component: AddNewproductComponent },
+      { path: 'addproduct', component: AddNewproductComponent, pathMatch:'full' },
     ],
   },
 ];
