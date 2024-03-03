@@ -64,7 +64,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         BusinessEmail: ['mkpandya@gmail.com'],
         BusinessPhoneNumber: ['022 28901729'],
         BusinessMobileNumber: ['9821159981'],
-        BusinessAddress1: ['Bmc Municipal Market'],
+        BusinessAddress1: ['Shop No. 21/22, B.M.C Vegetable Market'],
         BusinessAddress2: ['Borivali (West), Mumbai 400092'],
       }),
       BillOfproducts: this.formBuilder.array([
@@ -262,7 +262,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                       margin: [0, 0, 0, 5],
                     },
                     {
-                      text: 'BMC MUNICIPAL MARKET,Borivali (West),Mumbai 400092 ',
+                      text: 'Shop No. 21/22, B.M.C Vegetable Market,Borivali (West), Mumbai 400092 ',
                       fontSize: 10,
                       alignment: 'left',
                       color: '#gray',
@@ -270,7 +270,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                       margin: [0, 0, 0, 4],
                     },
                     {
-                      text: 'Mob No : 9821159981 9870399510  Ph No: 022 28901729',
+                      text: 'Mob No : 9821159981 9870399510 8591038243 ',
                       fontSize: 10,
                       alignment: 'left',
                       color: '#gray',
@@ -322,7 +322,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
             },
             {
               width: '*',
-              margin: [0, 13, 0, 10],
+              margin: [0, 13, 0, 1],
               stack: [
                 { text: `Invoice No: ${(Math.random() * 1000).toFixed(0)}` },
                 // {
@@ -335,7 +335,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
               ],
               fontSize: 12,
               bold: true,
-              lineHeight: 1.8,
+              lineHeight: 1.4,
               alignment: 'right',
             },
           ],
