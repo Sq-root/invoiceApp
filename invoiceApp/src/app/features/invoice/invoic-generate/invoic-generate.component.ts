@@ -221,7 +221,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       custName + '_' + 'BillNo' + '_' + invoicedata['invoiceNo'];
     let dd = {
       pageSize: 'A4',
-      pageMargins: [40, 25, 40, 35], // [left, top, right, bottom]
+    //   pageMargins: [40, 25, 40, 35], // [left, top, right, bottom]
       background: function (currentPage, pageSize) {
         return {
           stack: [
@@ -230,9 +230,9 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 {
                   type: 'rect',
                   x: 25, // Left margin
-                  y: 17, // Top margin
+                  y: 15, // Top margin
                   w: pageSize.width - 50, // Page width - (left margin + right margin)
-                  h: pageSize.height - 40, // Page height - (top margin + bottom margin)
+                  h: pageSize.height - 30, // Page height - (top margin + bottom margin)
                   lineWidth: 2,
                   lineColor: '#000', // Border color
                 },
@@ -255,7 +255,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                       bold: true,
                       alignment: 'left',
                       color: '#000',
-                      margin: [0, 10, 0, 0],
+                      margin: [0, 0, 0, 0],
                     },
                     {
                       text: '(FRESH & EXOTIC VEGETABLE SUPPLIERS)',
@@ -302,7 +302,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           ], // Adding a horizontal line
         },
         {
-          margin: [0, 10, 0, 10], // [left, top, right, bottom]
+          margin: [0, 5, 0, 10], // [left, top, right, bottom]
           columns: [
             {
               width: '60%',
@@ -326,7 +326,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
             },
             {
               width: '*',
-              margin: [0, 13, 0, 1],
+              margin: [0, 11, 0, 1],
               stack: [
                 { text: `Invoice No: ${invoicedata.invoiceNo}` },
                 // {
@@ -357,7 +357,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 { text: 'TOTAL', style: 'header' },
               ],
               ...invoicedata.BillOfproducts.map((item) => [
-                { text: item.productName.itemName, font: 'NotoSans' },
+                { text: item.productName.itemName , font: 'NotoSans',},
                 { text: `${item.quantity} (${item.unit})`, alignment: 'right' },
                 { text: item.amount, alignment: 'right' },
               ]),
@@ -366,6 +366,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         },
         {
           margin: [0, 15, 0, 5],
+           id: 'myTableId',
           table: {
             headerRows: 1,
             widths: ['*', 'auto'],
@@ -438,13 +439,20 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           },
         },
       ],
-      footer: function (currentPage, pageCount) {
-        return {
-          text: currentPage.toString() + ' of ' + pageCount,
-          alignment: 'right',
-          margin: [0, 15, 40, 0],
-        };
-      },
+  footer: function(currentPage, pageCount) {
+    return {
+        text: currentPage.toString() + ' of ' + pageCount, alignment: 'right',
+        margin: [0, 0, 40, 0]  }; },
+          // Define the pageBreakBefore function
+    pageBreakBefore: function(currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) {
+  //Here you can change the criteria of pageBreak according to your requirement
+  if (currentNode.id === 'myTableId' && (currentNode.pageNumbers.length != 1 || currentNode.pageNumbers[0] != currentNode.pages)) {
+    return true;
+  }
+
+  return false;
+},
+
       defaultStyle: {
         font: 'NotoSans',
         fontSize: 10,
