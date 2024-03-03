@@ -172,7 +172,7 @@
                   <!-- Quan -->
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [maxFractionDigits]="3"
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [minFractionDigits]="2" [maxFractionDigits]="3"
                         formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
                       <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true" placeholder="Unit"
                         formControlName="unit">

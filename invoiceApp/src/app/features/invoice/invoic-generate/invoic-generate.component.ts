@@ -22,7 +22,7 @@ pdfMake.fonts = fonts;
 export class InvoicGenerateComponent implements OnInit, OnDestroy {
   value;
   timeCategories = ['Morning', 'Afternoon', 'Evening', 'Night'];
-  unitList = ['Kg', 'Gram', 'Pc', 'Dozen', 'Box', 'Pkt', 'Juddi'];
+  unitList = ['Kg', 'Gram', 'Pc', 'Dozen', 'Box', 'Pkt', 'Judi'];
   products = [];
   selectedUnit: String = '';
   //Form
@@ -46,9 +46,9 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   // Method : Initalized Invoice Form
   getInitalizedForm() {
     //Random No
-    let no = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+    // let no = Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
     this.invoiceForm = this.formBuilder.group({
-      invoiceNo: [no, Validators.required],
+      invoiceNo: ['', Validators.required],
       invoiceDate: ['', Validators.required],
       invoiceTime: ['', Validators.required],
       customerDetails: this.formBuilder.group({
@@ -70,15 +70,15 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       BillOfproducts: this.formBuilder.array([
         this.formBuilder.group({
           productName: ['', Validators.required],
-          quantity: [0, [Validators.required]],
+          quantity: ['', [Validators.required]],
           unit: [0, Validators.required],
           rate: [0, Validators.required],
           amount: [0, Validators.required],
         }),
       ]),
       subTotal: [0.0],
-      deliveryCharge: [0.0],
-      cancelledCharge: [0.0],
+      deliveryCharge: ['0.0'],
+      cancelledCharge: ['0.0'],
       totalBill: [0.0],
     });
   }
@@ -156,6 +156,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
 
     // let quantity = selectedProduct.value['quantity'];
     let quantity = Number(selectedProduct.get('quantity').value);
+    console.log('quantity : ', quantity);
     let rate = Number(selectedProduct.get('rate').value);
     // let unit:number = selectedProduct.get('unit').value;
 
@@ -185,7 +186,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let subTotal = this.invoiceForm.get('subTotal').value;
     let totalBill = (
       Number(subTotal) + Number(this.invoiceForm.get('deliveryCharge').value)
-    ).toFixed(3);
+    ).toFixed(2);
     this.invoiceForm
       .get('totalBill')
       .patchValue(totalBill, { emitEvent: false });
@@ -206,10 +207,13 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   }
 
   generateInvoice(invoicedata: any) {
+    invoicedata['deliveryCharge'] = Number(
+      invoicedata['deliveryCharge']
+    ).toFixed(2);
+    invoicedata['cancelledCharge'] = Number(
+      invoicedata['cancelledCharge']
+    ).toFixed(2);
     invoicedata['invoiceDate'] = this.invoiceDate;
-    // this.invoiceForm
-    // .get('invoiceDate')
-    // .patchValue(this.invoiceDate, { emitEvent: false });
     const custName: string = String(
       invoicedata['customerDetails']['customerName']
     ).replace(' ', '_');
@@ -324,7 +328,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
               width: '*',
               margin: [0, 13, 0, 1],
               stack: [
-                { text: `Invoice No: ${(Math.random() * 1000).toFixed(0)}` },
+                { text: `Invoice No: ${invoicedata.invoiceNo}` },
                 // {
                 //   text: `Date: 02/03/2024`,
                 // },
@@ -434,6 +438,13 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           },
         },
       ],
+      footer: function (currentPage, pageCount) {
+        return {
+          text: currentPage.toString() + ' of ' + pageCount,
+          alignment: 'right',
+          margin: [0, 15, 40, 0],
+        };
+      },
       defaultStyle: {
         font: 'NotoSans',
         fontSize: 10,
@@ -442,7 +453,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         header: {
           fillColor: '#cccccc', // Gray color for the header
           bold: true,
-          fontSize: 13,
+          fontSize: 11,
           alignment: 'center',
         },
         subheader: {
