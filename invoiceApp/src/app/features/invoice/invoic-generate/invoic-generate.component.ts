@@ -342,7 +342,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 { text: invoicedata.customerDetails.customerMobileNumber },
               ],
               lineHeight: 1.2,
-              margin: [0, 0, 0, 10],
+              // margin: [0, 0, 0, 10],
             },
             {
               width: '*',
