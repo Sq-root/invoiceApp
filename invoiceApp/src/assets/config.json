@@ -1,6 +1,6 @@
 {
   "configs": {
-    "baseURL": "http://localhost:8089/",
+    "baseURL": "http://localhost:8088/",
     "Username": "Manubhai",
     "Password": "manubhai@123"
   }

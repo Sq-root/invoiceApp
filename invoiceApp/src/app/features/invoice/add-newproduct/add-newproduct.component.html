@@ -3,15 +3,15 @@
     <div class="col-7">
       <div class=" new-product-container card">
         <form [formGroup]="productForm">
-          <!-- <div class="card-header">
-            Featured
-          </div> -->
           <div class="card-body">
             <h5 class="card-title">Product Information</h5>
-            <div class="mb-3">
-              <label for="productName" class="form-label">Item Name</label>
+            <div class="my-4">
+              <label for="productName" class="form-label">Item Name <span class="text-red">*</span> </label>
               <input type="text" class="form-control" id="productName" name="productName" formControlName="productName"
                 placeholder="Enter Item Name">
+              <span
+                *ngIf="productForm.get('productName').touched && productForm.get('productName').hasError('required')"
+                class="validation">Item Name is required</span>
             </div>
             <div class="mb-3">
               <label for="productName" class="form-label">Price/Unit</label>
@@ -21,8 +21,8 @@
                     *ngFor="let product of productForm.get('productRateUnit')['controls']; let i = index;">
                     <div [formGroupName]="i" class="row">
                       <div class="col-4">
-                        <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true" placeholder="Select Unit"
-                          formControlName="unit">
+                        <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true"
+                          placeholder="Select Unit" formControlName="unit">
                           <ng-template pTemplate="selectedItem" let-selectedOption>
                             <div class="flex align-items-center gap-2">
                               <div>{{ selectedOption }}</div>
@@ -40,7 +40,7 @@
                           class="validation">* required</span> -->
                       </div>
                       <div class="col-6">
-                        <p-inputNumber inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2"
+                        <p-inputNumber class="form-filed" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2"
                           [maxFractionDigits]="3" formControlName="rate"></p-inputNumber>
                         <!-- <input type="text" formControlName="description" class="form-control" id="firstName"
                           placeholder="Product description" value="" required> -->
@@ -62,7 +62,7 @@
               </div>
             </div>
 
-            <button  class="btn btn-primary" (click)="getNewProduct()">Save</button>
+            <button class="btn btn-primary" (click)="getNewProduct()">Save</button>
           </div>
         </form>
       </div>
