@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, map } from 'rxjs';
 import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 //importing the encoded font file
 import { fonts } from './../../../shared/font_config/pdfFonts';
@@ -152,15 +152,15 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let BillOfproducts = (this.invoiceForm.get('BillOfproducts') as FormArray)
       .controls;
     let selectedProduct = BillOfproducts[index];
-    console.log('selectedProduct: ', selectedProduct);
+    // console.log('selectedProduct: ', selectedProduct);
 
     // let quantity = selectedProduct.value['quantity'];
     let quantity = Number(selectedProduct.get('quantity').value);
-    console.log('quantity : ', quantity);
+    // console.log('quantity : ', quantity);
     let rate = Number(selectedProduct.get('rate').value);
     // let unit:number = selectedProduct.get('unit').value;
 
-    let amount = (Number(quantity * rate)).toFixed(2);
+    let amount = Number(quantity * rate).toFixed(2);
     console.log('Total Amount: ', amount);
     selectedProduct.get('amount').patchValue(amount, { emitEvent: false });
     this.calculateInvoiceSubTotal();
@@ -206,7 +206,22 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       .patchValue(totalBill, { emitEvent: false });
   }
 
+  getRoundOfAmount(invoicedata: any) {
+    if (
+      invoicedata &&
+      invoicedata['BillOfproducts'] &&
+      invoicedata['BillOfproducts'].length > 0
+    ) {
+      for (let i = 0; i < invoicedata['BillOfproducts'].length; i++) {
+        invoicedata['BillOfproducts'][i].amount = Number(
+          invoicedata['BillOfproducts'][i].amount
+        ).toFixed(2);
+      }
+    }
+  }
+
   generateInvoice(invoicedata: any) {
+    //Fixed Amount
     invoicedata['deliveryCharge'] = Number(
       invoicedata['deliveryCharge']
     ).toFixed(2);
@@ -219,9 +234,14 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     ).replace(' ', '_');
     const fileName: String =
       custName + '_' + 'BillNo' + '_' + invoicedata['invoiceNo'];
+
+    this.getRoundOfAmount(invoicedata);
+
+    console.log('New', invoicedata['BillOfproducts']);
+
     let dd = {
       pageSize: 'A4',
-    //   pageMargins: [40, 25, 40, 35], // [left, top, right, bottom]
+      //   pageMargins: [40, 25, 40, 35], // [left, top, right, bottom]
       background: function (currentPage, pageSize) {
         return {
           stack: [
@@ -357,7 +377,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                 { text: 'TOTAL', style: 'header' },
               ],
               ...invoicedata.BillOfproducts.map((item) => [
-                { text: item.productName.itemName , font: 'NotoSans',},
+                { text: item.productName.itemName, font: 'NotoSans' },
                 { text: `${item.quantity} (${item.unit})`, alignment: 'right' },
                 { text: item.amount, alignment: 'right' },
               ]),
@@ -366,7 +386,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         },
         {
           margin: [0, 15, 0, 5],
-           id: 'myTableId',
+          id: 'myTableId',
           table: {
             headerRows: 1,
             widths: ['*', 'auto'],
@@ -439,19 +459,31 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
           },
         },
       ],
-  footer: function(currentPage, pageCount) {
-    return {
-        text: currentPage.toString() + ' of ' + pageCount, alignment: 'right',
-        margin: [0, 0, 40, 0]  }; },
-          // Define the pageBreakBefore function
-    pageBreakBefore: function(currentNode, followingNodesOnPage, nodesOnNextPage, previousNodesOnPage) {
-  //Here you can change the criteria of pageBreak according to your requirement
-  if (currentNode.id === 'myTableId' && (currentNode.pageNumbers.length != 1 || currentNode.pageNumbers[0] != currentNode.pages)) {
-    return true;
-  }
+      footer: function (currentPage, pageCount) {
+        return {
+          text: currentPage.toString() + ' of ' + pageCount,
+          alignment: 'right',
+          margin: [0, 0, 40, 0],
+        };
+      },
+      // Define the pageBreakBefore function
+      pageBreakBefore: function (
+        currentNode,
+        followingNodesOnPage,
+        nodesOnNextPage,
+        previousNodesOnPage
+      ) {
+        //Here you can change the criteria of pageBreak according to your requirement
+        if (
+          currentNode.id === 'myTableId' &&
+          (currentNode.pageNumbers.length != 1 ||
+            currentNode.pageNumbers[0] != currentNode.pages)
+        ) {
+          return true;
+        }
 
-  return false;
-},
+        return false;
+      },
 
       defaultStyle: {
         font: 'NotoSans',
