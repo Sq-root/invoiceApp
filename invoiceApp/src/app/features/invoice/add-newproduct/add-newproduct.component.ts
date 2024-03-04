@@ -22,31 +22,35 @@ export class AddNewproductComponent implements OnInit {
       productName: ['', Validators.required],
       productRateUnit: this.fb.array([
         this.fb.group({
-          rate: ['', Validators.required],
-          unit: [0, [Validators.required]],
+          rate: [0, Validators.required],
+          unit: ['', [Validators.required]],
         }),
       ]),
     });
   }
 
-    // Method: Used to get only product table obj
-    get productRateUnitMapping() {
-      return this.productForm.get('productRateUnit') as FormArray;
-    }
+  // Method: Used to get only product table obj
+  get productRateUnitMapping() {
+    return this.productForm.get('productRateUnit') as FormArray;
+  }
 
-    //Method: Add New ProductRateUnit for Invoice
-    addProductRateUnit() {
-      let newEntity = this.productForm.get('productRateUnit') as FormArray;
-      newEntity.push(
-        this.fb.group({
-          rate: ['', Validators.required],
-          unit: ['', [Validators.required]],
-        }),
-      );
-    }
+  //Method: Add New ProductRateUnit for Invoice
+  addProductRateUnit() {
+    let newEntity = this.productForm.get('productRateUnit') as FormArray;
+    newEntity.push(
+      this.fb.group({
+        rate: [0, Validators.required],
+        unit: ['', [Validators.required]],
+      })
+    );
+  }
 
-    //Method: Remove New removeProductRateUnit
-    removeProductRateUnit(index: number) {
-      this.productRateUnitMapping.removeAt(index);
-    }
+  //Method: Remove New removeProductRateUnit
+  removeProductRateUnit(index: number) {
+    this.productRateUnitMapping.removeAt(index);
+  }
+
+  getNewProduct() {
+    console.log('Product Form: ', this.productForm);
+  }
 }
