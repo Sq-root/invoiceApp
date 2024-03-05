@@ -154,12 +154,8 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let selectedProduct = BillOfproducts[index];
     // console.log('selectedProduct: ', selectedProduct);
 
-    // let quantity = selectedProduct.value['quantity'];
     let quantity = Number(selectedProduct.get('quantity').value);
-    // console.log('quantity : ', quantity);
     let rate = Number(selectedProduct.get('rate').value);
-    // let unit:number = selectedProduct.get('unit').value;
-
     let amount = Number(quantity * rate).toFixed(2);
     console.log('Total Amount: ', amount);
     selectedProduct.get('amount').patchValue(amount, { emitEvent: false });
@@ -213,6 +209,15 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       invoicedata['BillOfproducts'].length > 0
     ) {
       for (let i = 0; i < invoicedata['BillOfproducts'].length; i++) {
+        //For Quantity
+        let quantity = Number(invoicedata['BillOfproducts'][i].quantity);
+        if (quantity && !Number.isInteger(quantity)) {
+          invoicedata['BillOfproducts'][i].quantity = Number(
+            invoicedata['BillOfproducts'][i].quantity
+          ).toFixed(3);
+        }
+
+        //For Amount
         invoicedata['BillOfproducts'][i].amount = Number(
           invoicedata['BillOfproducts'][i].amount
         ).toFixed(2);
@@ -242,25 +247,25 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let dd = {
       pageSize: 'A4',
       pageMargins: [40, 15, 40, 35], // [left, top, right, bottom]
-    //   background: function (currentPage, pageSize) {
-    //     return {
-    //       stack: [
-    //         {
-    //           canvas: [
-    //             {
-    //               type: 'rect',
-    //               x: 25, // Left margin
-    //               y: 15, // Top margin
-    //               w: pageSize.width - 50, // Page width - (left margin + right margin)
-    //               h: pageSize.height - 30, // Page height - (top margin + bottom margin)
-    //               lineWidth: 2,
-    //               lineColor: '#000', // Border color
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     };
-    //   },
+      //   background: function (currentPage, pageSize) {
+      //     return {
+      //       stack: [
+      //         {
+      //           canvas: [
+      //             {
+      //               type: 'rect',
+      //               x: 25, // Left margin
+      //               y: 15, // Top margin
+      //               w: pageSize.width - 50, // Page width - (left margin + right margin)
+      //               h: pageSize.height - 30, // Page height - (top margin + bottom margin)
+      //               lineWidth: 2,
+      //               lineColor: '#000', // Border color
+      //             },
+      //           ],
+      //         },
+      //       ],
+      //     };
+      //   },
       content: [
         {
           table: {
@@ -275,7 +280,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
                       bold: true,
                       alignment: 'left',
                       color: '#000',
-                    //   margin: [0, 0, 0, 0],
+                      //   margin: [0, 0, 0, 0],
                     },
                     {
                       text: '(FRESH & EXOTIC VEGETABLE SUPPLIERS)',
