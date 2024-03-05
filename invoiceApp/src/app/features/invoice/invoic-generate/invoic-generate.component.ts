@@ -12,6 +12,7 @@ import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 import { fonts } from './../../../shared/font_config/pdfFonts';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from '../../../../assets/font/vfs_fonts.js';
+import { MenuItem } from 'primeng/api';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = fonts;
 @Component({
@@ -29,6 +30,8 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   invoiceForm: FormGroup;
   selectedProduct = {};
   invoiceDate: String = '';
+  //Menu bar
+  toolbar: MenuItem[] | undefined;
 
   private unsubscribeAPIEventListenerData: Subject<Boolean> =
     new Subject<Boolean>();
@@ -81,6 +84,54 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       cancelledCharge: ['0.0'],
       totalBill: [0.0],
     });
+
+    this.toolbar = [
+      {
+        tooltipOptions: {
+          tooltipLabel: 'Save',
+          tooltipPosition: 'left',
+        },
+        icon: 'pi pi-save',
+        // command: () => {
+        //     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
+        // }
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: 'Refresh',
+          tooltipPosition: 'left',
+        },
+        icon: 'pi pi-refresh',
+        // command: () => {
+        //     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
+        // }
+      },
+      // {
+      //   tooltipOptions: {
+      //     tooltipLabel: 'Delete',
+      //     tooltipPosition: 'left',
+      //   },
+      //   icon: 'pi pi-trash',
+      //   // command: () => {
+      //   //     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+      //   // }
+      // },
+      {
+        icon: 'pi pi-upload',
+        tooltipOptions: {
+          tooltipLabel: 'Download',
+          tooltipPosition: 'left',
+        },
+      },
+      {
+        tooltipOptions: {
+          tooltipLabel: 'Preview',
+          tooltipPosition: 'left',
+        },
+        icon: 'pi pi-external-link',
+        command: () => {},
+      },
+    ];
   }
 
   //Method: Get All Product
@@ -527,6 +578,24 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     };
     // pdfMake.createPdf(dd).download(fileName);
     pdfMake.createPdf(dd).open();
+  }
+
+  //Method: Save the Invoice
+  saveInvoice(invoicedata: any) {
+    //API Call
+    console.log('Save Invoice..');
+  }
+
+  //Method: Download the Invoice
+  DownloadInvoice(invoicedata: any) {
+    //API Call
+    console.log('Download Invoice..');
+  }
+
+  //Method: Download the Invoice
+  previewInvoice(invoicedata: any) {
+    //API Call
+    console.log('Download Invoice..');
   }
 
   // Reset Form

@@ -3,7 +3,14 @@
     <p-button label="Secondary" severity="Save Draft"></p-button>
     <p-button label="Danger" severity="Submit"></p-button>
   </div> -->
-  <div class="invoice-setting"></div>
+  <!-- <div class="invoice-setting"> -->
+
+  <!-- <div class="card"> -->
+  <!-- <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo"> -->
+  <p-speedDial [model]="toolbar" class="speeddial-left" direction="up"></p-speedDial>
+  <!-- </div> -->
+  <!-- </div> -->
+  <!-- </div> -->
   <div class="invoice-create-container">
     <form [formGroup]="invoiceForm">
       <div class="row">
@@ -38,8 +45,8 @@
                 formControlName="invoiceDate" [ngClass]="{
                   'invalid-field': invoiceForm.get('invoiceDate').invalid && invoiceForm.get('invoiceDate').touched
                 }"></p-calendar> -->
-              <input type="date" class="ng-calender border-gray" id="invoiceDate" (ngModelChange)="selectDate($event)" name="invoiceDate" placeholder="Select Date"
-                formControlName="invoiceDate" [ngClass]="{
+              <input type="date" class="ng-calender border-gray" id="invoiceDate" (ngModelChange)="selectDate($event)"
+                name="invoiceDate" placeholder="Select Date" formControlName="invoiceDate" [ngClass]="{
                   'invalid-field': invoiceForm.get('invoiceDate').invalid && invoiceForm.get('invoiceDate').touched}">
             </div>
             <div class=" d-flex align-items-start flex-column justify-content-start ">
@@ -172,8 +179,9 @@
                   <!-- Quan -->
                   <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [minFractionDigits]="2" [maxFractionDigits]="3"
-                        formControlName="quantity" (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
+                      <p-inputNumber inputId="minmaxfraction" mode="decimal" class="inputFiled" [minFractionDigits]="2"
+                        [maxFractionDigits]="3" formControlName="quantity"
+                        (ngModelChange)="calculateTotalPrice(i)"></p-inputNumber>
                       <p-dropdown [options]="unitList" class="unitDropdown" [showClear]="true" placeholder="Unit"
                         formControlName="unit">
                         <ng-template pTemplate="selectedItem" let-selectedOption>

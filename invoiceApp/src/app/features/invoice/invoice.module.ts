@@ -8,13 +8,14 @@ import { InvoiceContainerComponent } from './invoice-container/invoice-container
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { InvoicGenerateComponent } from './invoic-generate/invoic-generate.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastModule} from 'primeng/toast';
-import {TableModule} from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AddNewproductComponent } from './add-newproduct/add-newproduct.component';
+import { SpeedDialModule } from 'primeng/speeddial';
 @NgModule({
   declarations: [
     InvoiceContainerComponent,
@@ -34,7 +35,8 @@ import { AddNewproductComponent } from './add-newproduct/add-newproduct.componen
     NgxSpinnerModule,
     MultiSelectModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    SpeedDialModule,
   ],
 })
 export class InvoiceModule {}

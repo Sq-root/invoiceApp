@@ -1,46 +1,57 @@
-.invoice-create-container {
-  width: 100%;
-  height: 100%;
-  border: 2px solid #d7d7d9;
-  background-color: white;
-  padding: 2rem 3rem;
-  font-weight: 300 !important;
-  overflow: auto; /* Enable main content scrolling */
-  .invoice-type {
-    background-color: #a1a1a1;
-    color: white;
-    padding-inline: 12px;
-    margin-right: 20px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    font-weight: lighter;
-    justify-content: center;
-    font-size: larger;
-  }
-  .input-group-text {
-    border-radius: 0;
-    border-color: #d7d7d9;
-    border: 2px;
+.invoice-wrapper {
+  position: relative;
+
+  .speeddial-left {
+    position: sticky;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
   }
 
-  .statement-container .add-item-section button {
-    background-color: #747d9d;
-    color: white;
-    border: none;
-    font-size: 14px;
-    border-radius: 0px;
-    padding: 9px 19px;
-  }
+  .invoice-create-container {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #d7d7d9;
+    background-color: white;
+    padding: 2rem 3rem;
+    font-weight: 300 !important;
+    overflow: auto; /* Enable main content scrolling */
+    .invoice-type {
+      background-color: #a1a1a1;
+      color: white;
+      padding-inline: 12px;
+      margin-right: 20px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      font-weight: lighter;
+      justify-content: center;
+      font-size: larger;
+    }
+    .input-group-text {
+      border-radius: 0;
+      border-color: #d7d7d9;
+      border: 2px;
+    }
 
-  .p-add.p-button-sucess {
-    color: #ffffff;
-    border: 1px solid #747d9d;
-    background: #747d9d;
-    &:hover,
-    &:focus {
-      background: #68739d;
-      border: 1px solid #68739d;
+    .statement-container .add-item-section button {
+      background-color: #747d9d;
+      color: white;
+      border: none;
+      font-size: 14px;
+      border-radius: 0px;
+      padding: 9px 19px;
+    }
+
+    .p-add.p-button-sucess {
+      color: #ffffff;
+      border: 1px solid #747d9d;
+      background: #747d9d;
+      &:hover,
+      &:focus {
+        background: #68739d;
+        border: 1px solid #68739d;
+      }
     }
   }
 }
