@@ -48,6 +48,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     //On Load Methods
     this.getInitalizedForm();
     this.getAllProduct();
+    this.getBillNo();
   }
 
   // Method : Initalized Invoice Form
@@ -163,6 +164,9 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         } else {
           this.invoiceNo = 0;
         }
+        this.invoiceForm
+          .get('invoiceNo')
+          .patchValue(this.invoiceNo, { emitEvent: false });
       });
   }
 

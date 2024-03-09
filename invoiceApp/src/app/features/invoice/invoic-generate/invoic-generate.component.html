@@ -33,7 +33,7 @@
               <label for="invoiceNO" class="form-label fw-medium  d-block ">Invoice No.</label>
               <div class="input-group mb-3 w-75">
                 <span class="input-group-text" id="basic-addon1">#</span>
-                <input type="number" name="invoiceNo" class="form-control border-gray" id="invoiceNo" placeholder="No"
+                <input type="number" name="invoiceNo" readonly class="form-control border-gray" id="invoiceNo" placeholder="No"
                   formControlName="invoiceNo" [ngClass]="{
                     'invalid-field': invoiceForm.get('invoiceNo').invalid && invoiceForm.get('invoiceNo').touched
                   }">

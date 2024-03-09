@@ -57,6 +57,24 @@ export class RestSigninService {
         catchError((e) => throwError(this.errorHandler(e)))
       );
   }
+
+  //Method : Add New Product
+  saveNewProduct(productDetails) {
+    return this._http
+      .post(GlobalConstants.baseURL + 'api/v1/item', productDetails)
+      .pipe(
+        map((response) => {
+          if (response && response['sucessResponse']) {
+            if (response['sucessResponse']['status'] === 200) {
+              let result = response['sucessResponse']['data'];
+              return result;
+            }
+          }
+        }),
+        catchError((e) => throwError(this.errorHandler(e)))
+      );
+  }
+
   errorHandler(e: any): any {
     throw new Error(e);
   }

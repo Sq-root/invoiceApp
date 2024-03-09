@@ -260,3 +260,24 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 12px;
   }
 }
+.unitbtn {
+  .pi {
+    font-size: 14px;
+  }
+  .p-button {
+    color: #ffffff;
+    background: #747d9d;
+    border: 1px solid #747d9d;
+    padding: 1.15rem 1.25rem;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    box-shadow: none;
+
+    &:hover, &:active{
+      box-shadow: none;
+      background: #68739d;
+        border: 1px solid #68739d;
+    }
+  }
+}

@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
+import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
 
 @Component({
   selector: 'app-add-newproduct',
   templateUrl: './add-newproduct.component.html',
   styleUrls: ['./add-newproduct.component.scss'],
 })
-export class AddNewproductComponent implements OnInit {
+export class AddNewproductComponent implements OnInit, OnDestroy {
   productForm: FormGroup;
   unitList = ['Kg', 'Gram', 'Pc', 'Dozen', 'Box', 'Pkt', 'Judi'];
+  private unsubscribeAPIEventListenerData: Subject<Boolean> =
+    new Subject<Boolean>();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private _productSerivce: RestSigninService,
+    private _msgSerivce: ToastrService
+  ) {}
 
   ngOnInit(): void {
     //On Load Methods
@@ -22,8 +31,8 @@ export class AddNewproductComponent implements OnInit {
       productName: ['', Validators.required],
       productRateUnit: this.fb.array([
         this.fb.group({
-          rate: [0, Validators.required],
-          unit: ['', [Validators.required]],
+          rate: [],
+          unit: [],
         }),
       ]),
     });
@@ -39,8 +48,8 @@ export class AddNewproductComponent implements OnInit {
     let newEntity = this.productForm.get('productRateUnit') as FormArray;
     newEntity.push(
       this.fb.group({
-        rate: [0, Validators.required],
-        unit: ['', [Validators.required]],
+        rate: [],
+        unit: [],
       })
     );
   }
@@ -50,7 +59,32 @@ export class AddNewproductComponent implements OnInit {
     this.productRateUnitMapping.removeAt(index);
   }
 
-  getNewProduct() {
-    console.log('Product Form: ', this.productForm);
+  saveProductDetails() {
+    this.productForm.markAllAsTouched();
+    if (this.productForm.valid) {
+      this.insertNewProduct();
+    }
+  }
+
+  insertNewProduct() {
+    let product = {
+      itemName: this.productForm.value['productName'],
+      unit: {
+        Kg: 0,
+      },
+    };
+    this._productSerivce
+      .saveNewProduct(product)
+      .pipe(takeUntil(this.unsubscribeAPIEventListenerData))
+      .subscribe((data) => {
+        console.log('Product Added: ', data);
+        this._msgSerivce.info('Product added successfully');
+        this.productForm.reset();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAPIEventListenerData.next(true);
+    this.unsubscribeAPIEventListenerData.complete();
   }
 }

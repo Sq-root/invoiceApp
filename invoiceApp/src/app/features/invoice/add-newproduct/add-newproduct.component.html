@@ -19,9 +19,10 @@
                 <div class="unit-title d-flex justify-content-between align-items-center">
                   <p>Price/Unit</p>
                   <!-- <label for="productName" class="form-label">Price/Unit</label> -->
-                  <i class="pi pi-plus d-block" style="font-size: 1rem"></i>
+                  <!-- <i class="pi pi-plus" style="font-size: 1rem"></i> -->
+                  <p-button icon="pi pi-plus" class="unitbtn" severity="info" (click)="addProductRateUnit()"></p-button>
                 </div>
-                <ul class="list-group">
+                <ul class="list-group mt-2">
                   <li class="list-group-item" formArrayName="productRateUnit"
                     *ngFor="let product of productForm.get('productRateUnit')['controls']; let i = index;">
                     <div [formGroupName]="i" class="row">
@@ -39,27 +40,15 @@
                             </div>
                           </ng-template>
                         </p-dropdown>
-                        <!-- <input type="text" formControlName="unit" class="form-control" id="firstName"
-                          placeholder="Product name" value="" required> -->
-                        <!-- <span *ngIf="product.get('name').errors && product.get('name').hasError('required')"
-                          class="validation">* required</span> -->
                       </div>
                       <div class="col-6">
                         <p-inputNumber class="form-filed" inputId="minmaxfraction" mode="decimal"
-                          [minFractionDigits]="2" [maxFractionDigits]="3" formControlName="rate"></p-inputNumber>
-                        <!-- <input type="text" formControlName="description" class="form-control" id="firstName"
-                          placeholder="Product description" value="" required> -->
-                        <!-- <span
-                          *ngIf="product.get('description').errors && product.get('description').hasError('required')"
-                          class="validation">* required</span> -->
-
+                          [minFractionDigits]="2" placeholder="0.00" [maxFractionDigits]="3" formControlName="rate"></p-inputNumber>
                       </div>
                       <div class="col-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash-fill" viewBox="0 0 16 16" (click)="addProductRateUnit()">
-                          <path
-                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                        </svg>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                          (click)="removeProductRateUnit(i)"
+                          [disabled]="!(productForm.get('productRateUnit')['controls'].length > 1)"></button>
                       </div>
                     </div>
                   </li>
@@ -67,7 +56,7 @@
               </div>
             </div>
 
-            <button class="btn btn-primary" (click)="getNewProduct()">Save</button>
+            <button class="btn btn-primary savebtn float-end" (click)="saveProductDetails()">Save</button>
           </div>
         </form>
       </div>
