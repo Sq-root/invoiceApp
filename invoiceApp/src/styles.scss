@@ -274,10 +274,40 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 25px;
     box-shadow: none;
 
-    &:hover, &:active{
+    &:hover,
+    &:active {
       box-shadow: none;
       background: #68739d;
-        border: 1px solid #68739d;
+      border: 1px solid #68739d;
+    }
+  }
+}
+
+.mutlti-btn {
+  .p-splitbutton {
+    height: 42px;
+    .p-button {
+      color: #ffffff;
+      background: #ff8923;
+      border: none;
+      padding: 0px 22px;
+      font-size: 14px;
+      border-radius: 0;
+      font-family: "Roboto";
+      .pi {
+        font-size: 14px;
+      }
+    }
+    .p-tieredmenu {
+      padding: 0.25rem 0;
+      background: #ffffff;
+      color: #495057;
+      border: 1px solid #dee2e6;
+      border-radius: 0px;
+      width: 8.5rem;
+      font-family: "Roboto";
+      font-size: 14px;
+      box-shadow: none;
     }
   }
 }

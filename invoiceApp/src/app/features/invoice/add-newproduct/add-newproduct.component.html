@@ -1,4 +1,5 @@
 <section class="invoice-product-section">
+  <app-header></app-header>
   <div class="row product-container gap-4">
     <div class="col-7">
       <div class=" new-product-container card">
@@ -43,7 +44,8 @@
                       </div>
                       <div class="col-6">
                         <p-inputNumber class="form-filed" inputId="minmaxfraction" mode="decimal"
-                          [minFractionDigits]="2" placeholder="0.00" [maxFractionDigits]="3" formControlName="rate"></p-inputNumber>
+                          [minFractionDigits]="2" placeholder="0.00" [maxFractionDigits]="3"
+                          formControlName="rate"></p-inputNumber>
                       </div>
                       <div class="col-2">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
@@ -62,7 +64,7 @@
       </div>
     </div>
     <div class="col-4">
-      <div class="product-summary border-1">
+      <!-- <div class="product-summary border-1">
         <div class="card">
           <div class="card-header">
             Featured
@@ -73,7 +75,7 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 

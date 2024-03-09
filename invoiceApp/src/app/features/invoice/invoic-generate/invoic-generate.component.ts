@@ -14,6 +14,8 @@ import { fonts } from './../../../shared/font_config/pdfFonts';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from '../../../../assets/font/vfs_fonts.js';
 import { PdfmakerService } from 'src/app/shared/services/pdfmaker.service';
+import { ToastrService } from 'ngx-toastr';
+import { Route, Router } from '@angular/router';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = fonts;
 @Component({
@@ -22,7 +24,6 @@ pdfMake.fonts = fonts;
   styleUrls: ['./invoic-generate.component.scss'],
 })
 export class InvoicGenerateComponent implements OnInit, OnDestroy {
-  value;
   timeCategories = ['Morning', 'Afternoon', 'Evening', 'Night'];
   unitList = ['Kg', 'Gram', 'Pc', 'Dozen', 'Box', 'Pkt', 'Judi'];
   products = [];
@@ -33,20 +34,57 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   invoiceDate: String = '';
   invoiceNo: number = 0;
   invoiceStatementObj = {};
-  //Menu bar
-  toolbar: MenuItem[] | undefined;
-
+  items: MenuItem[];
+  showUpdateBtn: boolean = false;
+  showSaveBtn: boolean = false;
   private unsubscribeAPIEventListenerData: Subject<Boolean> =
     new Subject<Boolean>();
+
   constructor(
     private formBuilder: FormBuilder,
     private _invoiceService: RestSigninService,
-    private _pdfmaker: PdfmakerService
+    private _pdfmaker: PdfmakerService,
+    private _msgSerivce: ToastrService,
+    private route:Router
   ) {}
 
   ngOnInit(): void {
+    this.items = [
+      {
+        label: 'Update',
+        icon: 'pi pi-upload',
+        command: () => {
+          this.updateInvoice();
+        },
+      },
+      {
+        label: 'Preview',
+        icon: 'pi pi-file-pdf',
+        command: () => {
+          this.previewInvoice();
+        },
+      },
+      {
+        label: 'Download',
+        icon: 'pi pi-download',
+        command: () => {
+          this.DownloadInvoice();
+        },
+      },
+      {
+        label: 'Refresh',
+        icon: 'pi pi-refresh',
+        command: () => {
+          this.resetForm();
+        },
+      },
+    ];
     //On Load Methods
     this.getInitalizedForm();
+    this.onLoadMethod();
+  }
+
+  onLoadMethod() {
     this.getAllProduct();
     this.getBillNo();
   }
@@ -89,54 +127,6 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       cancelledCharge: ['0.0'],
       totalBill: [0.0],
     });
-
-    this.toolbar = [
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Save',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-save',
-        // command: () => {
-        //     this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-        // }
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Refresh',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-refresh',
-        // command: () => {
-        //     this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-        // }
-      },
-      // {
-      //   tooltipOptions: {
-      //     tooltipLabel: 'Delete',
-      //     tooltipPosition: 'left',
-      //   },
-      //   icon: 'pi pi-trash',
-      //   // command: () => {
-      //   //     this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-      //   // }
-      // },
-      {
-        icon: 'pi pi-upload',
-        tooltipOptions: {
-          tooltipLabel: 'Download',
-          tooltipPosition: 'left',
-        },
-      },
-      {
-        tooltipOptions: {
-          tooltipLabel: 'Preview',
-          tooltipPosition: 'left',
-        },
-        icon: 'pi pi-external-link',
-        command: () => {},
-      },
-    ];
   }
 
   //Method: Get All Product
@@ -197,16 +187,11 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
 
   selectDate(currentDate) {
     let date = new Date(currentDate);
-    console.log('Date: ', date);
     let dt = date.getDate();
     let mn = date.getMonth();
     mn++;
     let yy = date.getFullYear();
     this.invoiceDate = dt + '/' + mn + '/' + yy;
-    console.log('Date: ', this.invoiceDate);
-    // this.invoiceForm
-    //   .get('invoiceDate')
-    //   .patchValue(newDate, { emitEvent: false });
   }
 
   // Method : Generate Bill and Submit to API
@@ -214,8 +199,9 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     this.invoiceForm.markAllAsTouched();
     if (this.invoiceForm.valid) {
       this.invoiceStatementObj = this.invoiceForm.value;
-      // console.log('Invoice Form  :', this.invoiceStatementObj);
       this.generateInvoice(); //Generate PDF
+    } else {
+      this._msgSerivce.error('Kindly Fill the Form!');
     }
   }
 
@@ -224,8 +210,6 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     let BillOfproducts = (this.invoiceForm.get('BillOfproducts') as FormArray)
       .controls;
     let selectedProduct = BillOfproducts[index];
-    // console.log('selectedProduct: ', selectedProduct);
-
     let quantity = Number(selectedProduct.get('quantity').value);
     let rate = Number(selectedProduct.get('rate').value);
     let amount = Number(quantity * rate).toFixed(2);
@@ -307,7 +291,33 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   generateInvoice() {
     this.getRoundOfAmount(this.invoiceStatementObj);
     console.log('Modified Invoice', this.invoiceStatementObj);
-    this.previewInvoice();
+    let paylod = {
+      id: 0,
+      data: this.invoiceStatementObj,
+    };
+    this._invoiceService
+      .saveInvoiceStatement(paylod)
+      .pipe(takeUntil(this.unsubscribeAPIEventListenerData))
+      .subscribe((data) => {
+        console.log('Invoice Save: ', data);
+        this._msgSerivce.success('Invoice Generated Successfully');
+        this.showUpdateBtn = true;
+      });
+  }
+
+  updateInvoice() {
+    let paylod = {
+      id: 0,
+      data: this.invoiceStatementObj,
+    };
+    this._invoiceService
+      .updateInvoiceStatement(this.invoiceNo, paylod)
+      .pipe(takeUntil(this.unsubscribeAPIEventListenerData))
+      .subscribe((data) => {
+        console.log('Invoice Save: ', data);
+        this._msgSerivce.info('Invoice Updated Successfully');
+        // this.showUpdateBtn = true;
+      });
   }
 
   //Method: Save the Invoice
@@ -332,6 +342,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   resetForm() {
     this.invoiceForm.reset();
     this.invoiceStatementObj = {};
+    this.route.navigateByUrl('/invoice/create')
   }
 
   ngOnDestroy(): void {

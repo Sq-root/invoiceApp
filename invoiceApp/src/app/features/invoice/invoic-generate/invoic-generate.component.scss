@@ -1,11 +1,42 @@
 .invoice-wrapper {
   position: relative;
-
-  .speeddial-left {
-    position: sticky;
+  header {
+    position: fixed;
+    left: 200px;
+    height: 65px;
+    top: 0;
     right: 0;
-    bottom: 0;
-    z-index: 9999;
+    padding: 10px;
+    padding-inline: 45px;
+    border-bottom: 1px solid #e1e1e1;
+    background: #fff;
+    box-shadow: 0 1px 0 0 #e8e8e9;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      .header-title h4 {
+        font-size: 25px;
+        font-family: "Roboto";
+        font-weight: 500;
+      }
+      .custom-btn {
+        background-color: #a1a1a1;
+        color: white;
+        border: none;
+        font-size: 14px;
+        border-radius: 0px;
+        padding: 10px 40px;
+      }
+
+    }
   }
 
   .invoice-create-container {

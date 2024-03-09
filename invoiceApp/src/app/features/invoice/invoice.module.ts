@@ -15,7 +15,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AddNewproductComponent } from './add-newproduct/add-newproduct.component';
-import { SpeedDialModule } from 'primeng/speeddial';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { PdfmakerService } from 'src/app/shared/services/pdfmaker.service';
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { PdfmakerService } from 'src/app/shared/services/pdfmaker.service';
     MultiSelectModule,
     DropdownModule,
     InputNumberModule,
-    SpeedDialModule,
+    SplitButtonModule,
   ],
   providers: [PdfmakerService],
 })
