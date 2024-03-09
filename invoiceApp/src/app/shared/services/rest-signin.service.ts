@@ -26,7 +26,7 @@ export class RestSigninService {
       );
   }
 
-  //Method: Get All PRoducts
+  //Method: Get All Products
   getproductdetails() {
     return this._http.get(GlobalConstants.baseURL + 'api/v1/item').pipe(
       map((response) => {
@@ -39,6 +39,23 @@ export class RestSigninService {
       }),
       catchError((e) => throwError(this.errorHandler(e)))
     );
+  }
+
+  //Method: Get Invoice No
+  getInvoiceNo() {
+    return this._http
+      .get(GlobalConstants.baseURL + 'api/v1/bill/fetch/billNo')
+      .pipe(
+        map((response) => {
+          if (response && response['sucessResponse']) {
+            if (response['sucessResponse']['status'] === 200) {
+              let result = response['sucessResponse']['data'];
+              return result;
+            }
+          }
+        }),
+        catchError((e) => throwError(this.errorHandler(e)))
+      );
   }
   errorHandler(e: any): any {
     throw new Error(e);

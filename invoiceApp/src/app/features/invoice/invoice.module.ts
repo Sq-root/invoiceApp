@@ -16,6 +16,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AddNewproductComponent } from './add-newproduct/add-newproduct.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { PdfmakerService } from 'src/app/shared/services/pdfmaker.service';
 @NgModule({
   declarations: [
     InvoiceContainerComponent,
@@ -38,5 +39,6 @@ import { SpeedDialModule } from 'primeng/speeddial';
     InputNumberModule,
     SpeedDialModule,
   ],
+  providers: [PdfmakerService],
 })
 export class InvoiceModule {}
