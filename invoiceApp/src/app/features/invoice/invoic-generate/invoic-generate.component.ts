@@ -35,8 +35,8 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   invoiceNo: number = 0;
   invoiceStatementObj = {};
   items: MenuItem[];
+  showSaveBtn: boolean = true;
   showUpdateBtn: boolean = false;
-  showSaveBtn: boolean = false;
   private unsubscribeAPIEventListenerData: Subject<Boolean> =
     new Subject<Boolean>();
 
@@ -45,7 +45,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     private _invoiceService: RestSigninService,
     private _pdfmaker: PdfmakerService,
     private _msgSerivce: ToastrService,
-    private route:Router
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -302,10 +302,13 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
         console.log('Invoice Save: ', data);
         this._msgSerivce.success('Invoice Generated Successfully');
         this.showUpdateBtn = true;
+        this.showSaveBtn = false;
       });
   }
 
   updateInvoice() {
+    this.invoiceStatementObj = this.invoiceForm.value;
+    this.getRoundOfAmount(this.invoiceStatementObj);
     let paylod = {
       id: 0,
       data: this.invoiceStatementObj,
@@ -342,7 +345,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
   resetForm() {
     this.invoiceForm.reset();
     this.invoiceStatementObj = {};
-    this.route.navigateByUrl('/invoice/create')
+    this.onLoadMethod();
   }
 
   ngOnDestroy(): void {

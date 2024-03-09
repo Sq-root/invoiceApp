@@ -5,7 +5,7 @@
         <h4>New Invoice</h4>
       </div>
       <div class="header-btn-grp">
-        <button class="btn btn-primary custom-btn mx-3" (click)="getInvoiceDetails()">Save Draft</button>
+        <button class="btn btn-primary custom-btn mx-3" [disabled]="!showSaveBtn" (click)="getInvoiceDetails()">Save Draft</button>
           <p-splitButton label="Update" [disabled]="!showUpdateBtn" class="mutlti-btn" [model]="items"></p-splitButton>
       </div>
     </div>
@@ -261,8 +261,8 @@
                 </p-inputNumber>
               </div>
             </div>
-            <button type="button" class="btn btn-primary" style="background-color: #ff8923;"
-              (click)="getInvoiceDetails()">Save</button>
+            <!-- <button type="button" class="btn btn-primary" style="background-color: #ff8923;"
+              (click)="getInvoiceDetails()">Save</button> -->
           </div>
         </div>
       </div>
