@@ -221,7 +221,7 @@ export class PdfmakerService {
                 {
                   text: 'Total Amount',
                   bold: true,
-                  fontSize: 16,
+                  fontSize: 14,
                   alignment: 'right',
                   border: [false, false, false, false],
                   margin: [0, 5, 0, 5],
@@ -229,7 +229,7 @@ export class PdfmakerService {
                 {
                   text: `₹ ${invoicedata.totalBill}`,
                   bold: true,
-                  fontSize: 16,
+                  fontSize: 14,
                   alignment: 'right',
                   border: [false, false, false, false],
                   fillColor: '#f5f5f5',
@@ -300,6 +300,7 @@ export class PdfmakerService {
         },
       },
     };
+    this.removeExtraCol(invoicedata);
   }
 
   //Open PDF
@@ -312,5 +313,27 @@ export class PdfmakerService {
   getDownloadpdf(invoicedata: any) {
     this.getCreatePdf(invoicedata);
     pdfMake.createPdf(this.pdfObj).download(this.fileName);
+  }
+
+  //Remove Null Data
+  removeExtraCol(invoicedata) {
+    const tableBody = this.pdfObj['content'][4].table.body;
+    tableBody.forEach((row, index) => {
+      console.log("Row:" ,row, index);
+
+      if (row[0].text && row[0].text.includes('Delivery Charge (+)')) {
+        if (Number(invoicedata.deliveryCharge) < 1) {
+          tableBody.splice(index, 1); // Remove the row if it contains the delivery charge and the charge is less than 1
+          return;
+        }
+      }
+    });
+    tableBody.forEach((row, index) => {
+      if (row[0].text && row[0].text.includes('Vegetable Return Amount (-)')) {
+        if (Number(invoicedata.cancelledCharge) < 1) {
+          tableBody.splice(index, 1); // Remove the row if it contains the delivery charge and the charge is less than 1
+        }
+      }
+    });
   }
 }
