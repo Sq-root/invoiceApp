@@ -323,12 +323,6 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       });
   }
 
-  //Method: Save the Invoice
-  saveInvoice() {
-    //API Call
-    console.log('Save Invoice..');
-  }
-
   //Method: Download the Invoice
   DownloadInvoice() {
     console.log('Download Invoice..');
@@ -343,9 +337,7 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
 
   // Reset Form
   resetForm() {
-    this.invoiceForm.reset();
-    this.invoiceStatementObj = {};
-    this.onLoadMethod();
+    window.location.reload();
   }
 
   ngOnDestroy(): void {
