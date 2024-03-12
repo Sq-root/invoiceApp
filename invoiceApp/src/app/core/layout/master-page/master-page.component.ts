@@ -1,7 +1,7 @@
 import { GlobalConstants } from './../../../shared/model/dataModel';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { BaseService } from 'src/app/shared/services/base.service';
+import { BaseService } from '../../../shared/plugins';
 
 @Component({
   selector: 'app-master-page',

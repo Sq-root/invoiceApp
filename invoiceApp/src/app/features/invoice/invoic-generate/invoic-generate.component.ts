@@ -7,13 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subject, takeUntil, map } from 'rxjs';
-import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
+import { RestSigninService, fonts, PdfmakerService } from './../../../shared/plugins';
 import { MenuItem } from 'primeng/api';
 //importing the encoded font file
-import { fonts } from './../../../shared/font_config/pdfFonts';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from '../../../../assets/font/vfs_fonts.js';
-import { PdfmakerService } from 'src/app/shared/services/pdfmaker.service';
 import { ToastrService } from 'ngx-toastr';
 import { Route, Router } from '@angular/router';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;

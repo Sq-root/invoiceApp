@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { RestSigninService } from 'src/app/shared/services/rest-signin.service';
+import { RestSigninService  } from '../../../shared/plugins';
 
 @Component({
   selector: 'app-add-newproduct',
