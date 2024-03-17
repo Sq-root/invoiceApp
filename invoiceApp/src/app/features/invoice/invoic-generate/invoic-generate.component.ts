@@ -172,9 +172,9 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
       this.formBuilder.group({
         productName: ['', Validators.required],
         quantity: ['', Validators.required],
-        unit: ['', Validators.required],
-        rate: ['', Validators.required],
-        amount: ['', Validators.required],
+        unit: [0, Validators.required],
+        rate: [0, Validators.required],
+        amount: [0, Validators.required],
       })
     );
   }

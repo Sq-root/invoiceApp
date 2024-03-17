@@ -319,7 +319,7 @@ export class PdfmakerService {
   removeExtraCol(invoicedata) {
     const tableBody = this.pdfObj['content'][4].table.body;
     tableBody.forEach((row, index) => {
-      console.log("Row:" ,row, index);
+      // console.log("Row:" ,row, index);
 
       if (row[0].text && row[0].text.includes('Delivery Charge (+)')) {
         if (Number(invoicedata.deliveryCharge) < 1) {
