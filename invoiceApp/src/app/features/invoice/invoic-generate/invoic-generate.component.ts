@@ -286,6 +286,12 @@ export class InvoicGenerateComponent implements OnInit, OnDestroy {
     invoicedata['cancelledCharge'] = Number(
       invoicedata['cancelledCharge']
     ).toFixed(2);
+    invoicedata['totalBill'] = Number(
+      invoicedata['totalBill']
+    ).toFixed(2);
+    invoicedata['subTotal'] = Number(
+      invoicedata['subTotal']
+    ).toFixed(2);
   }
 
   generateInvoice() {
