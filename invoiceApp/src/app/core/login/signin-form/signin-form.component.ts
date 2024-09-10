@@ -18,15 +18,14 @@ export class SigninFormComponent implements OnInit, OnDestroy {
   userLoginForm: FormGroup;
   authToken: string = '';
 
-  private unsubscribeAPIEventListenerData: Subject<Boolean> =
-    new Subject<Boolean>();
+  private unsubscribeAPIEventListenerData: Subject<Boolean> = new Subject<Boolean>();
   constructor(
     private _loginService: RestSigninService,
     private _cookieService: CookieService,
     private route: Router,
     private spinner: NgxSpinnerService,
     private _msgSerivce: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getInitalizeForm();
